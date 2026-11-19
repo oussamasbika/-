@@ -1015,13 +1015,13 @@ export default function App() {
                         مرحباً بك في منصتك الرقمية
                       </h1>
 
-                      <div className="mb-3 sm:mb-5 bg-slate-950/65 backdrop-blur-md border border-amber-300/20 rounded-2xl px-3.5 sm:px-6 py-1 sm:py-1.5 max-w-xl mx-auto text-right shadow-lg shadow-black/25 divide-y divide-amber-200/10">
-                        <div className="py-2 sm:py-2.5 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
+                      <div className="mb-3 sm:mb-4 bg-slate-950/65 backdrop-blur-md border border-amber-300/20 rounded-2xl px-3.5 sm:px-6 py-0.5 sm:py-1 max-w-xl mx-auto text-right shadow-lg shadow-black/25 divide-y divide-amber-200/10">
+                        <div className="py-1.5 sm:py-2 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
                           <span className="font-bold text-amber-300">فكرة وإشراف:</span>
                           <span className="font-semibold text-amber-50">السيد مدير المدرسة عبد اللطيف سبيكة</span>
                         </div>
 
-                        <div className="py-2 sm:py-2.5 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-start">
+                        <div className="py-1.5 sm:py-2 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-start">
                           <span className="font-bold text-amber-300 pt-0.5">توظيب المربيات والمربي:</span>
                           <div className="grid grid-cols-2 gap-x-2 gap-y-1 sm:flex sm:flex-wrap sm:items-center sm:gap-x-1.5 font-semibold text-amber-50/95">
                             <span>رحمة خليفة</span>
@@ -1034,9 +1034,14 @@ export default function App() {
                           </div>
                         </div>
 
-                        <div className="py-2 sm:py-2.5 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
+                        <div className="py-1.5 sm:py-2 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
                           <span className="font-bold text-amber-300">الولية:</span>
                           <span className="font-semibold text-amber-50">فكرية حميدات</span>
+                        </div>
+
+                        <div className="py-1.5 sm:py-2 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
+                          <span className="font-bold text-amber-300">إعداد:</span>
+                          <span className="font-semibold text-amber-50">الطالب أسامة سبيكة</span>
                         </div>
                       </div>
 
