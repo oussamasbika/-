@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://ecole-mghadya-2.vercel.app/sitemap.xml
