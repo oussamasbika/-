@@ -28,6 +28,7 @@ import welcomeNightLibraryImg from './assets/images/welcome_night_library_179492
 import storyMoralPalaceImg from './assets/images/story_moral_palace_1794922758648.jpg';
 import storyImaginationPenImg from './assets/images/story_imagination_pen_1794922759070.jpg';
 import storyFlightDiscoveryImg from './assets/images/story_flight_discovery_1794922759088.jpg';
+import siteStorybookBackdropImg from './assets/images/site_storybook_backdrop_1795094859803.jpg';
 
 const STAR_POSITIONS = [
   { top: '12%', left: '15%', size: 3, delay: '0s' },
@@ -347,6 +348,7 @@ export default function App() {
   const [welcomePage, setWelcomePage] = useState<1 | 2>(1);
   const [failedThumbIds, setFailedThumbIds] = useState<Record<string, boolean>>({});
   const [stageImgError, setStageImgError] = useState(false);
+  const [siteBgError, setSiteBgError] = useState(false);
   
   // Story State
   const [isStoryActive, setIsStoryActive] = useState(false);
@@ -927,7 +929,23 @@ export default function App() {
     : 0;
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-950 overflow-x-clip" dir="rtl">
+    <div className="min-h-screen bg-[#FAF7F2] text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-950 relative overflow-x-clip" dir="rtl">
+      {/* Site-wide illustrated storybook background */}
+      <div className="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
+        {!siteBgError ? (
+          <img
+            src={siteStorybookBackdropImg}
+            alt=""
+            onError={() => setSiteBgError(true)}
+            className="w-full h-full object-cover opacity-90"
+            referrerPolicy="no-referrer"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-[#FAF7F2] via-[#F7EFE2] to-[#F3E5CE]" />
+        )}
+        <div className="absolute inset-0 bg-[#FAF7F2]/25" />
+      </div>
+
       <AnimatePresence>
         {showWelcome && (
           <motion.div 
@@ -1125,7 +1143,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Header */}
-      <header className="bg-white/90 backdrop-blur-md border-b border-amber-900/10 sticky top-0 z-50">
+      <header className="bg-white/80 backdrop-blur-md border-b border-amber-900/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 h-16 md:h-20 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
             <div className="bg-gradient-to-br from-orange-600 to-amber-500 p-2 sm:p-2.5 rounded-xl shadow-md shadow-amber-900/10 flex-shrink-0">
@@ -1162,7 +1180,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-3 sm:px-6 py-6 sm:py-8">
+      <main className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           
           {/* Main Content: Interactive Story Stage */}
@@ -1313,7 +1331,7 @@ export default function App() {
             </div>
 
             {/* Story Details Card */}
-            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-amber-900/10 shadow-sm relative overflow-hidden">
+            <div className="bg-white/90 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-amber-900/10 shadow-sm relative overflow-hidden">
               <div className="relative z-10">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-4 text-xs sm:text-sm font-bold">
                   <span className="text-orange-700">
@@ -1437,7 +1455,7 @@ export default function App() {
 
           {/* Sidebar: Playlist & Filters */}
           <div className="space-y-5 min-w-0">
-            <div className="bg-white p-5 sm:p-6 rounded-3xl border border-amber-900/10 shadow-sm space-y-5">
+            <div className="bg-white/90 backdrop-blur-md p-5 sm:p-6 rounded-3xl border border-amber-900/10 shadow-sm space-y-5">
               <div className="relative">
                 <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-700/60" />
                 <input 
@@ -1471,7 +1489,7 @@ export default function App() {
 
             <div className="space-y-3 max-h-[calc(100vh-360px)] overflow-y-auto pl-1 custom-scrollbar">
               {filteredVideos.length === 0 ? (
-                <div className="bg-white p-8 rounded-3xl border border-amber-900/10 text-center">
+                <div className="bg-white/90 backdrop-blur-md p-8 rounded-3xl border border-amber-900/10 text-center">
                   <BookOpen className="w-8 h-8 text-amber-400 mx-auto mb-3" />
                   <p className="text-sm font-bold text-slate-700">لم يتم العثور على قصة مطابقة لبحثك</p>
                   <button
@@ -1509,10 +1527,10 @@ export default function App() {
                           setCurrentSentenceIndex(0);
                           setCurrentVideo(video);
                         }}
-                        className={`group cursor-pointer p-3 rounded-2xl border transition-all flex gap-3.5 items-center ${
+                        className={`group cursor-pointer p-3 rounded-2xl border backdrop-blur-md transition-all flex gap-3.5 items-center ${
                           isCurrent 
-                          ? 'bg-amber-50/90 border-amber-300 shadow-sm' 
-                          : 'bg-white border-amber-900/10 hover:border-amber-300/70 hover:bg-amber-50/35'
+                          ? 'bg-amber-50/95 border-amber-300 shadow-sm' 
+                          : 'bg-white/90 border-amber-900/10 hover:border-amber-300/70 hover:bg-amber-50/75'
                         }`}
                       >
                         <div className="relative flex-shrink-0 w-24 sm:w-28 aspect-video rounded-xl overflow-hidden bg-amber-950/10 shadow-sm">
