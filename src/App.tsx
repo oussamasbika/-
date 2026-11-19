@@ -974,15 +974,15 @@ export default function App() {
                       transition={{ duration: 0.35, ease: 'easeOut' }}
                       className="text-center w-full"
                     >
-                      <div className="mb-2 sm:mb-3 flex flex-col items-center gap-0.5 text-center">
-                        <span className="text-[11px] sm:text-xs font-bold text-amber-100/80 tracking-wide">
+                      <div className="mb-2 sm:mb-3 flex flex-col items-center gap-0.5 sm:gap-1 text-center">
+                        <span className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-amber-200 tracking-wide leading-tight drop-shadow-sm">
                           وزارة التربية
                         </span>
-                        <span className="text-[11px] sm:text-xs font-semibold text-amber-200/85">
+                        <span className="text-xs sm:text-sm md:text-base font-bold text-amber-100/90 leading-snug">
                           المندوبية الجهوية للتربية بصفاقس 1
                         </span>
-                        <div className="mt-0.5 inline-flex items-center gap-1.5 text-amber-300 text-xs sm:text-base font-extrabold tracking-wide">
-                          <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 flex-shrink-0" />
+                        <div className="inline-flex items-center gap-1.5 text-amber-300/90 text-[11px] sm:text-sm font-bold tracking-wide">
+                          <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400 flex-shrink-0" />
                           <span>المدرسة الابتدائية المغذية 2</span>
                         </div>
                       </div>
@@ -998,13 +998,13 @@ export default function App() {
                       </h1>
 
                       <div className="mb-3 sm:mb-5 bg-slate-950/65 backdrop-blur-md border border-amber-300/20 rounded-2xl px-3.5 sm:px-6 py-1 sm:py-1.5 max-w-xl mx-auto text-right shadow-lg shadow-black/25 divide-y divide-amber-200/10">
-                        <div className="py-2 sm:py-2.5 grid grid-cols-[86px_1fr] sm:grid-cols-[120px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
+                        <div className="py-2 sm:py-2.5 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
                           <span className="font-bold text-amber-300">فكرة وإشراف:</span>
-                          <span className="font-semibold text-amber-50">السيد عبد اللطيف سبيكة</span>
+                          <span className="font-semibold text-amber-50">السيد مدير المدرسة عبد اللطيف سبيكة</span>
                         </div>
 
-                        <div className="py-2 sm:py-2.5 grid grid-cols-[86px_1fr] sm:grid-cols-[120px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-start">
-                          <span className="font-bold text-amber-300 pt-0.5">توظيف المربين:</span>
+                        <div className="py-2 sm:py-2.5 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-start">
+                          <span className="font-bold text-amber-300 pt-0.5">توظيب المربيات والمربي:</span>
                           <div className="grid grid-cols-2 gap-x-2 gap-y-1 sm:flex sm:flex-wrap sm:items-center sm:gap-x-1.5 font-semibold text-amber-50/95">
                             <span>رحمة خليفة</span>
                             <span className="hidden sm:inline text-amber-400/75">/</span>
@@ -1016,7 +1016,7 @@ export default function App() {
                           </div>
                         </div>
 
-                        <div className="py-2 sm:py-2.5 grid grid-cols-[86px_1fr] sm:grid-cols-[120px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
+                        <div className="py-2 sm:py-2.5 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
                           <span className="font-bold text-amber-300">الولية:</span>
                           <span className="font-semibold text-amber-50">فكرية حميدات</span>
                         </div>
@@ -1063,7 +1063,7 @@ export default function App() {
                       <div className="mb-4 sm:mb-6 bg-slate-950/65 backdrop-blur-xl border border-amber-300/25 rounded-2xl sm:rounded-3xl px-4 sm:px-9 py-4 sm:py-7 max-w-xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.45)] relative overflow-hidden">
                         <div className="relative z-10">
                           <p className="font-serif text-[16px] sm:text-[22px] text-amber-50 leading-[1.85] sm:leading-[1.95] text-balance">
-                            «إيمانًا منّا بأهمية المطالعة وضرورة تقريب القصة، اخترنا أن نحوّل حقيبة القسم للمطالعة العائلية إلى حقيبة مطالعة رقمية، حتى تقرّب القصة من جميع الأولياء والتلاميذ.»
+                            «إيمانًا منّا بأهمية المطالعة وضرورة تقريب القصة من الجميع، اخترنا أن نحوّل حقيبة القسم للمطالعة العائلية إلى حقيبة مطالعة رقمية، حتى نقرّبها أكثر من جميع الأولياء والتلاميذ.»
                           </p>
 
                           <div className="w-20 sm:w-28 h-px bg-gradient-to-r from-transparent via-amber-400/60 to-transparent mx-auto my-3 sm:my-5" />
@@ -1180,7 +1180,7 @@ export default function App() {
                       src={childReadingStageImg}
                       alt="طفل يقرأ في مكتبة مضاءة بالفوانيس"
                       onError={() => setStageImgError(true)}
-                      className="absolute inset-0 w-full h-full object-cover opacity-50"
+                      className="absolute inset-0 w-full h-full object-cover opacity-80"
                       referrerPolicy="no-referrer"
                     />
                   ) : (
@@ -1196,7 +1196,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-3 sm:p-6 md:p-8 text-center bg-gradient-to-t from-[#0d0907]/95 via-[#140e0a]/55 to-[#0d0907]/65">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-3 sm:p-6 md:p-8 text-center bg-gradient-to-t from-[#0d0907]/70 via-[#140e0a]/25 to-[#0d0907]/45">
                     <div className="absolute top-4 sm:top-5 inset-x-4 sm:inset-x-6 flex items-center justify-between z-50">
                       <div className="flex items-center gap-2">
                         <button 
@@ -1223,7 +1223,7 @@ export default function App() {
                         </button>
                       </div>
 
-                      <div className="text-xs sm:text-sm font-bold text-amber-200/90 bg-slate-950/55 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-amber-200/15 tabular-nums">
+                      <div className="text-xs sm:text-sm font-bold text-amber-200/90 bg-slate-950/45 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-amber-200/15 tabular-nums">
                         جملة {currentSentenceIndex + 1} من {STORY_SENTENCES.length}
                       </div>
                     </div>
@@ -1235,12 +1235,12 @@ export default function App() {
                         opacity: 1,
                         maxWidth: isStoryZoomed ? '92%' : '44rem'
                       }}
-                      className="mt-8 bg-slate-950/60 backdrop-blur-xl p-5 sm:p-8 md:p-10 rounded-3xl border border-amber-200/20 w-full shadow-2xl transition-all duration-500"
+                      className="mt-8 px-2 sm:px-6 py-2 w-full transition-all duration-500"
                     >
                       <div 
                         ref={textContainerRef}
                         className={`overflow-y-auto custom-scrollbar px-2 sm:px-4 scroll-smooth transition-all duration-500 ${
-                          isStoryZoomed ? 'max-h-[65vh]' : 'max-h-[165px] sm:max-h-[220px] md:max-h-[260px]'
+                          isStoryZoomed ? 'max-h-[65vh]' : 'max-h-[175px] sm:max-h-[230px] md:max-h-[270px]'
                         }`}
                       >
                         <div className="flex flex-wrap justify-start gap-x-2 gap-y-2.5 text-right">
@@ -1253,15 +1253,15 @@ export default function App() {
                                 onClick={() => playBrowserVoice(idx)}
                                 animate={{ 
                                   scale: isCurrent ? 1.02 : 1,
-                                  opacity: isCurrent ? 1 : 0.65
+                                  opacity: isCurrent ? 1 : 0.82
                                 }}
                                 title="اضغط للقراءة من هذه الجملة"
-                                className={`inline-block font-serif font-normal leading-[2.1] transition-all duration-300 cursor-pointer rounded-lg px-1.5 py-0.5 ${
+                                className={`inline-block font-serif font-normal leading-[2.1] transition-all duration-300 cursor-pointer rounded-lg px-1.5 py-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] ${
                                   isStoryZoomed ? 'text-2xl md:text-4xl' : 'text-lg sm:text-xl md:text-2xl'
                                 } ${
                                   isCurrent 
-                                    ? 'text-amber-300 bg-amber-400/15 shadow-[0_0_20px_rgba(251,191,36,0.18)]' 
-                                    : 'text-amber-50/75 hover:text-amber-100 hover:bg-white/5'
+                                    ? 'text-amber-300 bg-amber-400/20 shadow-[0_0_20px_rgba(251,191,36,0.2)]' 
+                                    : 'text-amber-50/90 hover:text-amber-100 hover:bg-white/10'
                                 }`}
                               >
                                 {sentence}.
