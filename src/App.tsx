@@ -23,12 +23,17 @@ import {
   Maximize2,
   Minimize2
 } from 'lucide-react';
-import childReadingStageImg from './assets/images/child_reading_stage_1794922757300.jpg';
 import welcomeNightLibraryImg from './assets/images/welcome_night_library_1794922758787.jpg';
-import storyMoralPalaceImg from './assets/images/story_moral_palace_1794922758648.jpg';
 import storyImaginationPenImg from './assets/images/story_imagination_pen_1794922759070.jpg';
 import storyFlightDiscoveryImg from './assets/images/story_flight_discovery_1794922759088.jpg';
 import siteStorybookBackdropImg from './assets/images/site_storybook_backdrop_1795094859803.jpg';
+import storyGoodNeighborImg from './assets/images/story_good_neighbor_1795180146300.jpg';
+import storyLoyalFortressImg from './assets/images/story_loyal_fortress_1795180145749.jpg';
+import storyMagicShoesImg from './assets/images/story_magic_shoes_1795180146991.jpg';
+import storyWiseShepherdImg from './assets/images/story_wise_shepherd_1795180146544.jpg';
+import storyPlantingPalmsImg from './assets/images/story_planting_palms_1795180146330.jpg';
+import harunPouringThumbImg from './assets/images/harun_pouring_teacher_1795181778660.jpg';
+import { StorySentenceScene } from './components/StorySentenceScene';
 
 const STAR_POSITIONS = [
   { top: '12%', left: '15%', size: 3, delay: '0s' },
@@ -245,7 +250,7 @@ const VIDEOS: Video[] = [
     id: 'video-1',
     title: 'قصة اعتراف بالجميل: هارون الرشيد ومعلِّمه',
     description: 'قصة رائعة عن الخليفة هارون الرشيد وتواضعه أمام معلمه الذي علمه الحكمة والأدب، وكيف رد له الجميل أمام الجميع.',
-    thumbnail: storyMoralPalaceImg,
+    thumbnail: harunPouringThumbImg,
     url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     duration: '8:45',
     category: 'قصص',
@@ -257,7 +262,7 @@ const VIDEOS: Video[] = [
     id: 'video-4',
     title: 'قصة الجوار أغلى من الدار',
     description: 'قصة مؤثرة عن قيمة الجار الصالح وكيف أن الجوار الكريم يرفع من قيمة الدار، والوفاء بين الجيران.',
-    thumbnail: storyMoralPalaceImg,
+    thumbnail: storyGoodNeighborImg,
     url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
     duration: '7:20',
     category: 'قصص',
@@ -269,7 +274,7 @@ const VIDEOS: Video[] = [
     id: 'video-5',
     title: 'قصة الوفاء بالعهد',
     description: 'قصة السموأل بن عادياء ووفائه الأسطوري بالعهد وحفظه للأمانة رغم كل الصعاب والتضحيات.',
-    thumbnail: welcomeNightLibraryImg,
+    thumbnail: storyLoyalFortressImg,
     url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
     duration: '9:15',
     category: 'قصص',
@@ -281,7 +286,7 @@ const VIDEOS: Video[] = [
     id: 'video-6',
     title: 'قصة الأحذية المسحورة',
     description: 'قصة العم صابر وزوجته مع الأقزام الطيبين الذين ساعدوهم في صناعة أجمل الأحذية، ودرس في رد الجميل.',
-    thumbnail: storyImaginationPenImg,
+    thumbnail: storyMagicShoesImg,
     url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
     duration: '10:40',
     category: 'قصص',
@@ -305,7 +310,7 @@ const VIDEOS: Video[] = [
     id: 'video-8',
     title: 'قصة حيلة الراعي',
     description: 'قصة طريفة وذكية عن راعٍ حكيم استطاع بذكائه وحيلته أن يدفع الملك إلى كسر عهده، ودرس في الفطنة والحزم.',
-    thumbnail: storyMoralPalaceImg,
+    thumbnail: storyWiseShepherdImg,
     url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
     duration: '12:00',
     category: 'قصص',
@@ -317,7 +322,7 @@ const VIDEOS: Video[] = [
     id: 'video-9',
     title: 'قصة أقوال من ذهب',
     description: 'حكاية ملكٍ يزور رعيته فيعجب بحسن الحوار ولباقة صبية ذكية وحكمة شيخٍ مُسِنٍّ يغرس النخل للأجيال القادمة.',
-    thumbnail: welcomeNightLibraryImg,
+    thumbnail: storyPlantingPalmsImg,
     url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
     duration: '8:30',
     category: 'قصص',
@@ -347,7 +352,6 @@ export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [welcomePage, setWelcomePage] = useState<1 | 2>(1);
   const [failedThumbIds, setFailedThumbIds] = useState<Record<string, boolean>>({});
-  const [stageImgError, setStageImgError] = useState(false);
   const [siteBgError, setSiteBgError] = useState(false);
   
   // Story State
@@ -370,15 +374,25 @@ export default function App() {
 
   const sentenceRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  // Scroll active sentence into view
+  // Scroll active sentence smoothly inside the story text container only (never scroll the whole page)
   useEffect(() => {
-    if (isStoryActive && sentenceRefs.current[currentSentenceIndex]) {
-      sentenceRefs.current[currentSentenceIndex]?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }
-  }, [currentSentenceIndex, isStoryActive]);
+    const container = textContainerRef.current;
+    const activeEl = sentenceRefs.current[currentSentenceIndex];
+    if (!isStoryActive || !container || !activeEl) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const activeRect = activeEl.getBoundingClientRect();
+    const relativeTop = activeRect.top - containerRect.top + container.scrollTop;
+    const targetScrollTop = Math.max(
+      0,
+      relativeTop - container.clientHeight / 2 + activeRect.height / 2
+    );
+
+    container.scrollTo({
+      top: targetScrollTop,
+      behavior: 'smooth',
+    });
+  }, [currentSentenceIndex, isStoryActive, isStoryZoomed]);
 
   const voicesRef = useRef<SpeechSynthesisVoice[]>([]);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -1038,11 +1052,6 @@ export default function App() {
                           <span className="font-bold text-amber-300">الولية:</span>
                           <span className="font-semibold text-amber-50">فكرية حميدات</span>
                         </div>
-
-                        <div className="py-1.5 sm:py-2 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
-                          <span className="font-bold text-amber-300">إعداد:</span>
-                          <span className="font-semibold text-amber-50">الطالب أسامة سبيكة</span>
-                        </div>
                       </div>
 
                       <p className="text-xs sm:text-base text-amber-50/80 mb-3.5 sm:mb-5 max-w-lg mx-auto leading-relaxed px-1">
@@ -1191,24 +1200,14 @@ export default function App() {
           {/* Main Content: Interactive Story Stage */}
           <div className={`space-y-6 transition-all duration-500 min-w-0 ${isStoryZoomed ? 'lg:col-span-3' : 'lg:col-span-2'}`}>
             <div className={`bg-[#140e0a] rounded-3xl overflow-hidden shadow-xl ring-1 ring-amber-900/15 relative group transition-all duration-500 ${
-              isStoryZoomed ? 'h-[80vh]' : 'min-h-[260px] sm:min-h-[340px] sm:aspect-video'
+              isStoryZoomed ? 'h-[80vh]' : 'min-h-[310px] sm:min-h-[360px] sm:aspect-video'
             }`}>
               {isStoryActive ? (
-                <div className="absolute inset-0 bg-[#120d09] flex flex-col items-center justify-center overflow-hidden">
-                  {!stageImgError ? (
-                    <motion.img 
-                      initial={{ scale: 1.08 }}
-                      animate={{ scale: 1, x: [0, -10, 0] }}
-                      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                      src={childReadingStageImg}
-                      alt="طفل يقرأ في مكتبة مضاءة بالفوانيس"
-                      onError={() => setStageImgError(true)}
-                      className="absolute inset-0 w-full h-full object-cover opacity-80"
-                      referrerPolicy="no-referrer"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-slate-900 via-[#1f1610] to-amber-950/60" />
-                  )}
+                <div className="absolute inset-0 bg-[#120d09] flex flex-col items-center justify-end overflow-hidden">
+                  <StorySentenceScene
+                    storyId={currentVideo.id}
+                    sentenceIndex={currentSentenceIndex}
+                  />
 
                   {/* Top Reading Progress Bar */}
                   <div className="absolute top-0 inset-x-0 h-1 bg-white/10 z-50">
@@ -1219,7 +1218,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-3 sm:p-6 md:p-8 text-center bg-gradient-to-t from-[#0d0907]/70 via-[#140e0a]/25 to-[#0d0907]/45">
+                  <div className="absolute inset-0 flex flex-col items-center justify-end px-3 sm:px-6 md:px-8 pt-14 pb-3 sm:pb-5 text-center bg-gradient-to-t from-[#090705]/85 via-[#090705]/25 via-40% to-transparent">
                     <div className="absolute top-4 sm:top-5 inset-x-4 sm:inset-x-6 flex items-center justify-between z-50">
                       <div className="flex items-center gap-2">
                         <button 
@@ -1252,21 +1251,21 @@ export default function App() {
                     </div>
 
                     <motion.div 
-                      initial={{ y: 24, opacity: 0 }}
+                      initial={{ y: 20, opacity: 0 }}
                       animate={{ 
                         y: 0, 
                         opacity: 1,
-                        maxWidth: isStoryZoomed ? '92%' : '44rem'
+                        maxWidth: isStoryZoomed ? '94%' : '56rem'
                       }}
-                      className="mt-8 px-2 sm:px-6 py-2 w-full transition-all duration-500"
+                      className="px-1 sm:px-4 py-1 w-full transition-all duration-500"
                     >
                       <div 
                         ref={textContainerRef}
-                        className={`overflow-y-auto custom-scrollbar px-2 sm:px-4 scroll-smooth transition-all duration-500 ${
-                          isStoryZoomed ? 'max-h-[65vh]' : 'max-h-[175px] sm:max-h-[230px] md:max-h-[270px]'
+                        className={`overflow-y-auto custom-scrollbar px-2 sm:px-3 scroll-smooth transition-all duration-500 ${
+                          isStoryZoomed ? 'max-h-[34vh] sm:max-h-[36vh]' : 'max-h-[120px] sm:max-h-[145px] md:max-h-[168px]'
                         }`}
                       >
-                        <div className="flex flex-wrap justify-start gap-x-2 gap-y-2.5 text-right">
+                        <div className="flex flex-wrap justify-start gap-x-2 gap-y-2 text-right">
                           {STORY_SENTENCES.map((sentence, idx) => {
                             const isCurrent = currentSentenceIndex === idx;
                             return (
@@ -1276,15 +1275,15 @@ export default function App() {
                                 onClick={() => playBrowserVoice(idx)}
                                 animate={{ 
                                   scale: isCurrent ? 1.02 : 1,
-                                  opacity: isCurrent ? 1 : 0.82
+                                  opacity: isCurrent ? 1 : 0.85
                                 }}
                                 title="اضغط للقراءة من هذه الجملة"
-                                className={`inline-block font-serif font-normal leading-[2.1] transition-all duration-300 cursor-pointer rounded-lg px-1.5 py-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] ${
-                                  isStoryZoomed ? 'text-2xl md:text-4xl' : 'text-lg sm:text-xl md:text-2xl'
+                                className={`inline-block font-serif font-normal leading-[1.95] transition-all duration-300 cursor-pointer rounded-lg px-1.5 py-0.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.98)] ${
+                                  isStoryZoomed ? 'text-2xl md:text-3xl' : 'text-base sm:text-lg md:text-xl'
                                 } ${
                                   isCurrent 
-                                    ? 'text-amber-300 bg-amber-400/20 shadow-[0_0_20px_rgba(251,191,36,0.2)]' 
-                                    : 'text-amber-50/90 hover:text-amber-100 hover:bg-white/10'
+                                    ? 'text-amber-300 bg-amber-400/25 shadow-[0_0_20px_rgba(251,191,36,0.22)]' 
+                                    : 'text-amber-50/95 hover:text-amber-100 hover:bg-white/10'
                                 }`}
                               >
                                 {sentence}.
