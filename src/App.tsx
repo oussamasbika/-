@@ -1008,7 +1008,7 @@ export default function App() {
                       <div className="mb-3 sm:mb-4 bg-slate-950/65 backdrop-blur-md border border-amber-300/20 rounded-2xl px-3.5 sm:px-6 py-0.5 sm:py-1 max-w-xl mx-auto text-right shadow-lg shadow-black/25 divide-y divide-amber-200/10">
                         <div className="py-1.5 sm:py-2 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
                           <span className="font-bold text-amber-300">فكرة وإشراف:</span>
-                          <span className="font-semibold text-amber-50">السيد مدير المدرسة عبد اللطيف سبيكة</span>
+                          <span className="font-semibold text-amber-50">مدير المدرسة السيد عبد اللطيف سبيكة</span>
                         </div>
 
                         <div className="py-1.5 sm:py-2 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-start">

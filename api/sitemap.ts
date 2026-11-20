@@ -12,7 +12,7 @@ export default function handler(req: VercelReq, res: VercelRes) {
   const hostHeader = req.headers?.['x-forwarded-host'] || req.headers?.host;
   const proto = typeof protoHeader === 'string' ? protoHeader.split(',')[0].trim() : 'https';
   const host = typeof hostHeader === 'string' ? hostHeader.split(',')[0].trim() : '';
-  const baseUrl = host ? `${proto}://${host}` : '';
+  const baseUrl = host ? `${proto}://${host}` : 'https://ecole-mghadya-2.vercel.app';
   const today = new Date().toISOString().split('T')[0];
 
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
