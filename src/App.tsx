@@ -372,28 +372,6 @@ export default function App() {
       .filter(s => s.length > 0);
   }, [currentVideo.storyText]);
 
-  const sentenceRefs = useRef<(HTMLSpanElement | null)[]>([]);
-
-  // Scroll active sentence smoothly inside the story text container only (never scroll the whole page)
-  useEffect(() => {
-    const container = textContainerRef.current;
-    const activeEl = sentenceRefs.current[currentSentenceIndex];
-    if (!isStoryActive || !container || !activeEl) return;
-
-    const containerRect = container.getBoundingClientRect();
-    const activeRect = activeEl.getBoundingClientRect();
-    const relativeTop = activeRect.top - containerRect.top + container.scrollTop;
-    const targetScrollTop = Math.max(
-      0,
-      relativeTop - container.clientHeight / 2 + activeRect.height / 2
-    );
-
-    container.scrollTo({
-      top: targetScrollTop,
-      behavior: 'smooth',
-    });
-  }, [currentSentenceIndex, isStoryActive, isStoryZoomed]);
-
   const voicesRef = useRef<SpeechSynthesisVoice[]>([]);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const activeSourceRef = useRef<AudioBufferSourceNode | null>(null);
@@ -641,8 +619,6 @@ export default function App() {
 
     return utterance;
   };
-
-  const textContainerRef = useRef<HTMLDivElement>(null);
 
   const categories = useMemo(() => {
     const cats = Array.from(new Set(VIDEOS.map(v => v.subcategory)));
@@ -1245,54 +1221,53 @@ export default function App() {
                         </button>
                       </div>
 
-                      <div className="text-xs sm:text-sm font-bold text-amber-200/90 bg-slate-950/45 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-amber-200/15 tabular-nums">
-                        جملة {currentSentenceIndex + 1} من {STORY_SENTENCES.length}
+                      <div className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-amber-200/95 bg-slate-950/45 backdrop-blur-md px-2 sm:px-3 py-1 rounded-xl border border-amber-200/15 tabular-nums">
+                        <button
+                          type="button"
+                          onClick={() => playBrowserVoice(Math.max(0, currentSentenceIndex - 1))}
+                          disabled={currentSentenceIndex === 0}
+                          className="p-1 rounded-lg hover:bg-white/10 disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer"
+                          title="الجملة السابقة"
+                          aria-label="الجملة السابقة"
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                        <span className="px-1">
+                          جملة {currentSentenceIndex + 1} من {STORY_SENTENCES.length}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => playBrowserVoice(Math.min(STORY_SENTENCES.length - 1, currentSentenceIndex + 1))}
+                          disabled={currentSentenceIndex >= STORY_SENTENCES.length - 1}
+                          className="p-1 rounded-lg hover:bg-white/10 disabled:opacity-35 disabled:pointer-events-none transition-colors cursor-pointer"
+                          title="الجملة التالية"
+                          aria-label="الجملة التالية"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
                       </div>
                     </div>
 
-                    <motion.div 
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ 
-                        y: 0, 
-                        opacity: 1,
-                        maxWidth: isStoryZoomed ? '94%' : '56rem'
-                      }}
-                      className="px-1 sm:px-4 py-1 w-full transition-all duration-500"
-                    >
-                      <div 
-                        ref={textContainerRef}
-                        className={`overflow-y-auto custom-scrollbar px-2 sm:px-3 scroll-smooth transition-all duration-500 ${
-                          isStoryZoomed ? 'max-h-[34vh] sm:max-h-[36vh]' : 'max-h-[120px] sm:max-h-[145px] md:max-h-[168px]'
-                        }`}
-                      >
-                        <div className="flex flex-wrap justify-start gap-x-2 gap-y-2 text-right">
-                          {STORY_SENTENCES.map((sentence, idx) => {
-                            const isCurrent = currentSentenceIndex === idx;
-                            return (
-                              <motion.span
-                                key={idx}
-                                ref={el => { sentenceRefs.current[idx] = el; }}
-                                onClick={() => playBrowserVoice(idx)}
-                                animate={{ 
-                                  scale: isCurrent ? 1.02 : 1,
-                                  opacity: isCurrent ? 1 : 0.85
-                                }}
-                                title="اضغط للقراءة من هذه الجملة"
-                                className={`inline-block font-serif font-normal leading-[1.95] transition-all duration-300 cursor-pointer rounded-lg px-1.5 py-0.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.98)] ${
-                                  isStoryZoomed ? 'text-2xl md:text-3xl' : 'text-base sm:text-lg md:text-xl'
-                                } ${
-                                  isCurrent 
-                                    ? 'text-amber-300 bg-amber-400/25 shadow-[0_0_20px_rgba(251,191,36,0.22)]' 
-                                    : 'text-amber-50/95 hover:text-amber-100 hover:bg-white/10'
-                                }`}
-                              >
-                                {sentence}.
-                              </motion.span>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </motion.div>
+                    <div className={`px-2 sm:px-6 pb-1 w-full transition-all duration-500 ${isStoryZoomed ? 'max-w-[94%]' : 'max-w-4xl'}`}>
+                      <AnimatePresence mode="wait">
+                        {STORY_SENTENCES[currentSentenceIndex] && (
+                          <motion.p
+                            key={`${currentVideo.id}-${currentSentenceIndex}`}
+                            initial={{ y: 10, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: -6, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: 'easeOut' }}
+                            onClick={() => playBrowserVoice(currentSentenceIndex)}
+                            title="اضغط لإعادة سماع هذه الجملة"
+                            className={`font-serif font-medium leading-[1.85] text-amber-200 text-center text-balance cursor-pointer select-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.98)] ${
+                              isStoryZoomed ? 'text-2xl sm:text-3xl md:text-4xl' : 'text-lg sm:text-xl md:text-2xl'
+                            }`}
+                          >
+                            {STORY_SENTENCES[currentSentenceIndex]}.
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
                 </div>
               ) : (
