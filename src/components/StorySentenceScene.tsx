@@ -7,6 +7,20 @@ interface StorySentenceSceneProps {
   sentenceIndex: number;
 }
 
+interface MotionPattern {
+  scaleDelta: number[];
+  x: string[];
+  y: string[];
+  duration: number;
+}
+
+const MOTION_PATTERNS: MotionPattern[] = [
+  { scaleDelta: [0.0, 0.06, 0.02, 0.0], x: ['0%', '1.1%', '-0.7%', '0%'], y: ['0%', '-0.8%', '0.5%', '0%'], duration: 15 },
+  { scaleDelta: [0.05, 0.0, 0.04, 0.05], x: ['-0.8%', '0.9%', '-0.5%', '-0.8%'], y: ['0.6%', '-0.7%', '0.4%', '0.6%'], duration: 16 },
+  { scaleDelta: [0.01, 0.065, 0.02, 0.01], x: ['0.8%', '-1.0%', '0.4%', '0.8%'], y: ['-0.5%', '0.8%', '-0.4%', '-0.5%'], duration: 17 },
+  { scaleDelta: [0.045, 0.01, 0.055, 0.045], x: ['0%', '-0.9%', '1.0%', '0%'], y: ['0.7%', '-0.6%', '0.3%', '0.7%'], duration: 14 },
+];
+
 export const StorySentenceScene: React.FC<StorySentenceSceneProps> = ({
   storyId,
   sentenceIndex,
@@ -15,6 +29,8 @@ export const StorySentenceScene: React.FC<StorySentenceSceneProps> = ({
   const safeIdx = Math.max(0, Math.min(sentenceIndex, frames.length - 1));
   const frame = frames[safeIdx];
   const sceneKey = `${storyId}-${safeIdx}`;
+  const baseScale = Math.max(frame.scale, 1.11);
+  const pattern = MOTION_PATTERNS[safeIdx % MOTION_PATTERNS.length];
 
   // Preload upcoming 2 paintings so sentence transitions appear instantly
   useEffect(() => {
@@ -45,15 +61,36 @@ export const StorySentenceScene: React.FC<StorySentenceSceneProps> = ({
             src={frame.src}
             alt=""
             referrerPolicy="no-referrer"
-            initial={{ scale: frame.scale + 0.05 }}
-            animate={{ scale: frame.scale }}
-            transition={{ duration: 8, ease: 'easeOut' }}
+            initial={{
+              scale: baseScale + pattern.scaleDelta[0],
+              x: pattern.x[0],
+              y: pattern.y[0],
+            }}
+            animate={{
+              scale: pattern.scaleDelta.map((d) => baseScale + d),
+              x: pattern.x,
+              y: pattern.y,
+            }}
+            transition={{
+              duration: pattern.duration,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
             style={{
               objectPosition: frame.origin,
               transformOrigin: frame.origin,
               filter: `brightness(${frame.brightness ?? 0.88}) saturate(1.06)`,
             }}
             className="w-full h-full object-cover will-change-transform"
+          />
+          <motion.div
+            animate={{ opacity: [0.04, 0.14, 0.04] }}
+            transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(circle at 72% 24%, rgba(253,224,140,0.35) 0%, rgba(253,224,140,0) 60%)',
+            }}
           />
           <div
             className="absolute inset-0 pointer-events-none"

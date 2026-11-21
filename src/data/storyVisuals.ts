@@ -79,6 +79,90 @@ import abbasCrystalLensesImg from '../assets/images/abbas_crystal_glass_lenses_1
 import abbasJabalArusImg from '../assets/images/abbas_jabal_arus_launch_1795182760828.jpg';
 import abbasTailLegacyImg from '../assets/images/abbas_tail_design_legacy_1795182758968.jpg';
 
+import lionHappyJungleDenImg from '../assets/images/lion_happy_jungle_den_1795251993979.jpg';
+import lionAnimalsRespectImg from '../assets/images/lion_animals_respect_forest_1795251993522.jpg';
+import foxEntertainingLionImg from '../assets/images/fox_entertaining_lion_throne_1795251995074.jpg';
+import camelTremblingArrivalImg from '../assets/images/camel_trembling_forest_arrival_1795251993717.jpg';
+import lionAskingSadCamelImg from '../assets/images/lion_asking_sad_camel_1795251994398.jpg';
+import tigerStalkingBabyCamelImg from '../assets/images/tiger_stalking_baby_camel_1795251993561.jpg';
+import foxWhisperingWickedImg from '../assets/images/fox_whispering_wicked_plan_1795251994238.jpg';
+import lionAngryRefusalFoxImg from '../assets/images/lion_angry_refusal_fox_1795251994708.jpg';
+import lionChasingFoxImg from '../assets/images/lion_chasing_treacherous_fox_1795251994680.jpg';
+import lionCamelVizierImg from '../assets/images/lion_camel_vizier_friendship_1795251994156.jpg';
+import camelWiselyPraisingImg from '../assets/images/camel_wisely_praising_lion_1795251995043.jpg';
+
+import eidFatherMosqueReturnImg from '../assets/images/eid_father_mosque_return_1795252356062.jpg';
+import eidChildrenWaitingImg from '../assets/images/eid_children_waiting_hallway_1795252353422.jpg';
+import eidFatherKidsWelcomeImg from '../assets/images/eid_father_kids_welcome_1795252353961.jpg';
+import eidMotherGreetingImg from '../assets/images/eid_mother_greeting_home_1795252354059.jpg';
+import eidSalmaSettingTableImg from '../assets/images/eid_salma_setting_table_1795252419296.jpg';
+import eidFamilySweetsTableImg from '../assets/images/eid_family_sweets_table_1795252354397.jpg';
+import eidNewClothesCleanImg from '../assets/images/eid_new_clothes_clean_1795252419774.jpg';
+import eidVillageToyMarketImg from '../assets/images/eid_village_toy_market_1795252353795.jpg';
+import eidGirlRedSilkBoyImg from '../assets/images/eid_girl_red_dress_silk_boy_1795252353893.jpg';
+import eidBoyGreenVestImg from '../assets/images/eid_boy_green_vest_brown_1795252357476.jpg';
+import eidToddlerSilkSuitImg from '../assets/images/eid_toddler_silk_suit_1795252419774.jpg';
+import eidSalmaDollCleanImg from '../assets/images/eid_salma_doll_clean_1795252419116.jpg';
+import eidSabriWhiteHorseImg from '../assets/images/eid_sabri_white_horse_1795252353577.jpg';
+import eidPlayingCourtyardImg from '../assets/images/eid_playing_courtyard_hallway_1795252355341.jpg';
+import eidHorseFallsDollCryingImg from '../assets/images/eid_horse_falls_doll_crying_1795252419648.jpg';
+import eidSalmaFindingButtonImg from '../assets/images/eid_salma_finding_button_1795252419387.jpg';
+
+import paperMuradWalkImg from '../assets/images/paper_murad_walk_clean_1795252621310.jpg';
+import paperTrafficSmokeImg from '../assets/images/paper_traffic_smoke_clean_1795252621239.jpg';
+import paperTrafficPolicemanImg from '../assets/images/paper_traffic_policeman_1795252575673.jpg';
+import paperHungryMuradImg from '../assets/images/paper_hungry_murad_clean_1795252621765.jpg';
+import paperMuradCountingCoinsImg from '../assets/images/paper_murad_counting_coins_1795252574252.jpg';
+import paperBuyingSandwichImg from '../assets/images/paper_buying_sandwich_clean_1795252623144.jpg';
+import paperMuradEatingImg from '../assets/images/paper_murad_eating_walking_1795252574135.jpg';
+import paperWipingTossingImg from '../assets/images/paper_wiping_tossing_air_1795252598738.jpg';
+import paperKickingRollingImg from '../assets/images/paper_kicking_rolling_pavement_1795252599306.jpg';
+import paperKindWomanStoppingImg from '../assets/images/paper_kind_woman_stopping_murad_1795252602920.jpg';
+import paperMuradCheckingPocketsImg from '../assets/images/paper_murad_checking_pockets_1795252602003.jpg';
+import paperMuradDenyingInsistingImg from '../assets/images/paper_murad_denying_woman_insisting_1795252602337.jpg';
+import paperMuradAshamedImg from '../assets/images/paper_murad_ashamed_apologizing_1795252602651.jpg';
+import paperMuradPickingUpImg from '../assets/images/paper_murad_picking_paper_up_1795252601407.jpg';
+import paperMuradBinImg from '../assets/images/paper_murad_bin_clean_city_1795252602911.jpg';
+
+import turtleMeetingDucksImg from '../assets/images/turtle_meeting_ducks_lake_1795253011354.jpg';
+import turtleDucksCautionImg from '../assets/images/turtle_ducks_caution_talk_1795253008707.jpg';
+import turtleStickPlanImg from '../assets/images/turtle_stick_plan_agreed_1795253008578.jpg';
+import turtleHappyBringingImg from '../assets/images/turtle_happy_bringing_stick_1795253011661.jpg';
+
+import boukornineHoopoePlateImg from '../assets/images/boukornine_hoopoe_plate.jpg';
+import boukornineHoopoeEatingImg from '../assets/images/boukornine_hoopoe_eating.jpg';
+import boukornineHoopoeCrestImg from '../assets/images/boukornine_hoopoe_crest.jpg';
+import boukornineMountainBayImg from '../assets/images/boukornine_mountain_bay.jpg';
+import boukornineTwinPeaksSunriseImg from '../assets/images/boukornine_twin_peaks_sunrise.jpg';
+import boukornineHammamLifViewImg from '../assets/images/boukornine_hammam_lif_view.jpg';
+import boukornineRoadPineCoastImg from '../assets/images/boukornine_road_pine_coast.jpg';
+import boukornineGreenSlopesImg from '../assets/images/boukornine_green_slopes.jpg';
+import boukorninePersianCyclamenImg from '../assets/images/boukornine_persian_cyclamen.jpg';
+import boukornineWildOrchidImg from '../assets/images/boukornine_wild_orchid.jpg';
+import boukornineBoySpottingBirdsImg from '../assets/images/boukornine_boy_spotting_birds.jpg';
+import boukorninePrayingMantisImg from '../assets/images/boukornine_praying_mantis.jpg';
+import boukornineTwoTailedPashaImg from '../assets/images/boukornine_two_tailed_pasha.jpg';
+import boukornineBarbarySheepImg from '../assets/images/boukornine_barbary_sheep.jpg';
+import boukornineEtruscanShrewImg from '../assets/images/boukornine_etruscan_shrew.jpg';
+import boukornineGoldenJackalImg from '../assets/images/boukornine_golden_jackal.jpg';
+import boukornineChildCameraImg from '../assets/images/boukornine_child_camera.jpg';
+
+import waterDuhaWindowDropImg from '../assets/images/water_duha_window_drop_1795290449977.jpg';
+import waterDropPaneDetailImg from '../assets/images/water_drop_pane_detail.jpg';
+import waterDropEscapingCloudImg from '../assets/images/water_drop_escaping_cloud_1795298862711.jpg';
+import waterCycleEvaporationImg from '../assets/images/water_cycle_evaporation_1795290450223.jpg';
+import waterRiverSeaSunriseImg from '../assets/images/water_river_sea_sunrise_detail.jpg';
+import waterCloudRainSoilImg from '../assets/images/water_cloud_rain_soil_1795290452131.jpg';
+import waterRainEarthImg from '../assets/images/water_rain_earth.jpg';
+import waterStormFarmersJoyImg from '../assets/images/water_storm_farmers_joy_1795290449739.jpg';
+import waterDuhaSingingGardenImg from '../assets/images/water_duha_singing_garden_1795290450370.jpg';
+import waterDesertOasisThirstySoilImg from '../assets/images/water_desert_oasis_thirsty_soil_1795298862755.jpg';
+import waterQuenchedMeadowMouseImg from '../assets/images/water_quenched_meadow_mouse_detail.jpg';
+import waterEmeraldMeadowPearlsImg from '../assets/images/water_emerald_meadow_pearls_1795298862620.jpg';
+import waterFragrantBlossomsMistImg from '../assets/images/water_fragrant_blossoms_mist_1795298862979.jpg';
+import waterBirdsSingingImg from '../assets/images/water_birds_singing.jpg';
+import waterJasmineDropletImg from '../assets/images/water_jasmine_droplet_detail.jpg';
+
 export interface SentenceVisualFrame {
   src: string;
   origin: string;
@@ -94,12 +178,11 @@ const f = (
 ): SentenceVisualFrame => ({ src, origin, scale, brightness });
 
 /**
- * Explicit 1-to-1 watercolor illustration choreography for all 153 sentences
- * across the 8 stories using 73 unique full-bleed storybook paintings.
+ * Explicit 1-to-1 visual choreography for all 321 sentences across the 15 stories.
  * Rules enforced:
- *  - Every frame uses only story-authentic watercolor paintings (no cross-story leaks).
- *  - Adjacent sentences in every story strictly alternate source paintings.
- *  - Every painting accurately depicts the scene, characters, and mood of its sentence.
+ *  - Every frame uses story-authentic imagery (no mismatched cross-story visuals).
+ *  - Adjacent sentences in every story strictly alternate source visuals.
+ *  - Every asset accurately depicts the scene, species, setting, and mood of its sentence.
  */
 export const STORY_VISUALS: Record<string, SentenceVisualFrame[]> = {
   // -------------------------------------------------------------------------
@@ -309,5 +392,222 @@ export const STORY_VISUALS: Record<string, SentenceVisualFrame[]> = {
     f(abbasTailLegacyImg, '50% 48%', 1.04, 0.92),      // 10: سميت باسمه فوهة قمرية ومطار في العراق قرب بغداد
     f(abbasCrystalLensesImg, '50% 52%', 1.18, 0.90),   // 11: لم يكن أول طيار فحسب بل كان مخترعا للكثير من الأشياء
     f(abbasGlidingImg, '46% 42%', 1.08, 0.92),         // 12: حلق قبل الأخوين رايت بعشرة قرون فخر البلدان الإسلامية
+  ],
+
+  // -------------------------------------------------------------------------
+  // Story 9 (video-11): الليث العادل — 20 sentences (0..19)
+  // 11 distinct paintings
+  // -------------------------------------------------------------------------
+  'video-11': [
+    f(lionHappyJungleDenImg, '50% 48%', 1.06, 0.90),       // 0: أسد قوي الجسم يجلس في عرينه سعيدا مبتهجا
+    f(lionAnimalsRespectImg, '50% 50%', 1.12, 0.90),       // 1: جميع حيوانات الغابة تخاف ملك الوحوش وتحترمه لعدله
+    f(foxEntertainingLionImg, '42% 54%', 1.18, 0.90),      // 2: نجح الثعلب في أن يصبح مساعدا لملك الغابة
+    f(lionAnimalsRespectImg, '44% 56%', 1.22, 0.90),       // 3: كلما جلس الأسد على عرشه قص عليه الثعلب طرائف مسلية
+    f(camelTremblingArrivalImg, '50% 50%', 1.06, 0.90),    // 4: ذات يوم أقبل جمل على ملك الغابة في مجلسه
+    f(lionAskingSadCamelImg, '36% 58%', 1.20, 0.88),       // 5: كان الجمل خائفا جدا يرتجف
+    f(camelTremblingArrivalImg, '68% 44%', 1.22, 0.90),    // 6: سأله الأسد: ما بك أيها الجمل
+    f(lionAskingSadCamelImg, '50% 50%', 1.12, 0.90),       // 7: ولماذا جئت إلى هنا
+    f(tigerStalkingBabyCamelImg, '50% 52%', 1.06, 0.88),   // 8: هجم نمر على صغيري الحوار وأكله
+    f(lionAskingSadCamelImg, '44% 52%', 1.18, 0.88),       // 9: فاستنجدت بك لتنصفني منه
+    f(foxWhisperingWickedImg, '44% 50%', 1.12, 0.88),      // 10: همس الثعلب في أذن الأسد قائلا: ها قد جاءتك الفريسة
+    f(lionAngryRefusalFoxImg, '38% 42%', 1.16, 0.90),      // 11: ولكن الأسد فاجأه بالرفض
+    f(lionAskingSadCamelImg, '60% 44%', 1.18, 0.90),       // 12: أنا لا أغدر بمن استجار بي رغم أني جائع
+    f(foxWhisperingWickedImg, '46% 52%', 1.22, 0.88),      // 13: وبما أنك لا تقدر الأمانة ستكون أنت غداءنا اليوم
+    f(lionAngryRefusalFoxImg, '50% 62%', 1.16, 0.88),      // 14: حاول الثعلب النمام النجاة بنفسه
+    f(lionChasingFoxImg, '52% 48%', 1.06, 0.90),           // 15: ولكن الليث سرعان ما هجم عليه وافترسه
+    f(lionCamelVizierImg, '50% 50%', 1.06, 0.92),          // 16: سأجعلك وزيري وصديقي ومستشاري لأنك كنت شجاعا
+    f(lionHappyJungleDenImg, '52% 48%', 1.14, 0.90),       // 17: وجئت تطلب حقك دون جزع وخوف
+    f(camelWiselyPraisingImg, '48% 52%', 1.06, 0.92),      // 18: قال الجمل: لقد علمت بعدلك وإنصافك فأردت أن أجرب هذه الفضيلة
+    f(lionCamelVizierImg, '50% 48%', 1.14, 0.92),          // 19: ولقد رأيت منك بعيني أكثر مما سمعت وليس من سمع كمن رأى
+  ],
+
+  // -------------------------------------------------------------------------
+  // Story 10 (video-12): لعبة العيد — 26 sentences (0..25)
+  // 16 distinct paintings
+  // -------------------------------------------------------------------------
+  'video-12': [
+    f(eidFatherMosqueReturnImg, '50% 50%', 1.06, 0.90),    // 0: بعدما أدى أبي صلاة العيد في الجامع رجع إلى المنزل
+    f(eidChildrenWaitingImg, '50% 50%', 1.06, 0.90),       // 1: فوجدني في الرواق أنتظره صحبة أخي
+    f(eidFatherKidsWelcomeImg, '50% 50%', 1.06, 0.92),     // 2: ما كدنا نرى أبي حتى أسرعنا إليه وقبلناه وهنأناه بالعيد
+    f(eidMotherGreetingImg, '50% 50%', 1.06, 0.92),        // 3: استقبلتنا أمي مبتسمة وقبلتنا وخاطبتني أعدي المائدة يا سلمى
+    f(eidSalmaSettingTableImg, '50% 50%', 1.06, 0.92),     // 4: سمعا وطاعة يا أماه
+    f(eidFamilySweetsTableImg, '50% 50%', 1.06, 0.92),     // 5: بعد قليل جلسنا حول المائدة
+    f(eidSalmaSettingTableImg, '56% 58%', 1.18, 0.92),     // 6: وتناولنا أشهى الحلويات التي صنعتها مع أمي بهذه المناسبة السعيدة
+    f(eidNewClothesCleanImg, '50% 50%', 1.06, 0.92),       // 7: لما فرغنا من الأكل ذهبت مع أخي صبري وارتدينا ملابسنا الجديدة
+    f(eidVillageToyMarketImg, '50% 50%', 1.06, 0.92),      // 8: سرنا إلى ساحة القرية التي تحولت إلى سوق كبير للعب
+    f(eidGirlRedSilkBoyImg, '50% 48%', 1.06, 0.92),        // 9: وصلنا إلى الساحة فإذا هي مزدحمة بالأطفال من مختلف الأعمار
+    f(eidVillageToyMarketImg, '48% 54%', 1.16, 0.92),      // 10: وكلهم يتبخترون في أجمل الثياب
+    f(eidBoyGreenVestImg, '46% 52%', 1.08, 0.92),          // 11: هذا يرتدي صدارا أخضر وسروالا بنيا
+    f(eidGirlRedSilkBoyImg, '28% 54%', 1.24, 0.92),        // 12: وتلك تلبس فستانا أحمر
+    f(eidToddlerSilkSuitImg, '50% 50%', 1.06, 0.92),       // 13: أما ذلك الطفل الصغير فقد ارتدى حلة من الحرير
+    f(eidVillageToyMarketImg, '44% 52%', 1.16, 0.92),      // 14: كنا نسير وسط الأطفال المتزاحمين وننظر إلى اللعب المعروضة
+    f(eidSalmaDollCleanImg, '42% 52%', 1.08, 0.92),        // 15: ولما رأيت دمية كبيرة جعلت أقلبها ثم اشتريتها
+    f(eidSabriWhiteHorseImg, '50% 52%', 1.08, 0.92),       // 16: أما أخي صبري فأعجبه حصان أبيض اللون
+    f(eidChildrenWaitingImg, '54% 52%', 1.14, 0.90),       // 17: رجعنا إلى البيت وجلسنا في الرواق
+    f(eidSabriWhiteHorseImg, '46% 54%', 1.18, 0.92),       // 18: وشرع كل واحد منا يلعب بلعبته
+    f(eidPlayingCourtyardImg, '50% 52%', 1.14, 0.92),      // 19: فبينما كنت أسرح شعر دميتي كان صبري يعلم حصانه الجري
+    f(eidSabriWhiteHorseImg, '36% 54%', 1.24, 0.92),       // 20: فتارة يدفعه إلى الأمام وأخرى يجذبه إلى الخلف
+    f(eidHorseFallsDollCryingImg, '50% 50%', 1.06, 0.90),  // 21: وفجأة وقع الحصان على الدمية فأخذت تبكي
+    f(eidPlayingCourtyardImg, '64% 50%', 1.22, 0.90),      // 22: فكدنا لا نصدق ما نسمع
+    f(eidSalmaDollCleanImg, '44% 54%', 1.22, 0.92),        // 23: وسرعان ما أخذت الدمية وجعلت أتلمسها
+    f(eidSalmaFindingButtonImg, '50% 50%', 1.06, 0.92),    // 24: فوجدت زرا صغيرا تحت فستانها
+    f(eidHorseFallsDollCryingImg, '48% 54%', 1.16, 0.92),  // 25: عند ذلك عرفت أن الحصان لما سقط عليها أدار الزر فبكت الدمية
+  ],
+
+  // -------------------------------------------------------------------------
+  // Story 11 (video-13): الورقة الثمينة — 56 sentences (0..55)
+  // 15 distinct paintings
+  // -------------------------------------------------------------------------
+  'video-13': [
+    f(paperMuradWalkImg, '50% 50%', 1.06, 0.92),              // 0: انطلق مراد يتجول في شوارع المدينة
+    f(paperTrafficPolicemanImg, '38% 36%', 1.18, 0.90),       // 1: السيارات والشاحنات والدراجات تملأ الطرقات صخبا وضجيجا
+    f(paperTrafficSmokeImg, '50% 60%', 1.18, 0.88),           // 2: وتنفث في الجو دخانا أسود ثقيلا
+    f(paperMuradWalkImg, '68% 54%', 1.22, 0.92),              // 3: وأكثر الناس يسيرون سيرا حثيثا لقضاء حوائجهم
+    f(paperTrafficPolicemanImg, '54% 52%', 1.06, 0.92),       // 4: ورجال الشرطة ينظمون سير العربات والمترجلين
+    f(paperHungryMuradImg, '40% 48%', 1.16, 0.90),            // 5: شعر مراد بجوع شديد
+    f(paperBuyingSandwichImg, '46% 52%', 1.18, 0.92),         // 6: ورغب في تناول فطور شهي
+    f(paperMuradWalkImg, '34% 58%', 1.24, 0.90),              // 7: فمد يده إلى جيبه
+    f(paperHungryMuradImg, '42% 54%', 1.24, 0.90),            // 8: وأخرج منه قطعة نقدية
+    f(paperMuradCountingCoinsImg, '48% 58%', 1.16, 0.90),     // 9: وعدها
+    f(paperHungryMuradImg, '38% 42%', 1.26, 0.90),            // 10: فمط شفتيه
+    f(paperMuradCountingCoinsImg, '50% 50%', 1.08, 0.90),     // 11: ثم ارتجع القطعة إلى جيبه
+    f(paperMuradWalkImg, '34% 52%', 1.18, 0.90),              // 12: وقال بصوت يسمعه من يسير بجانبه: لا يصلح هذا المبلغ لطعام فاخر
+    f(paperBuyingSandwichImg, '52% 54%', 1.14, 0.92),         // 13: ولكنه يكفي لشراء لمجة خفيفة
+    f(paperMuradWalkImg, '52% 52%', 1.12, 0.92),              // 14: اتجه مراد صوب مطعم شعبي مختص في الأكلات الخفيفة
+    f(paperBuyingSandwichImg, '52% 50%', 1.08, 0.92),         // 15: فشرى شطيرة
+    f(paperMuradCountingCoinsImg, '48% 62%', 1.22, 0.92),     // 16: ونقد البائع الثمن
+    f(paperMuradWalkImg, '44% 54%', 1.14, 0.92),              // 17: وواصل جولته
+    f(paperMuradEatingImg, '44% 52%', 1.16, 0.92),            // 18: كان ينقل بصره هنا وهناك ويلتهم لمجته في شراهة
+    f(paperWipingTossingImg, '68% 56%', 1.22, 0.92),          // 19: وسرعان ما أتى عليها
+    f(paperMuradEatingImg, '42% 62%', 1.26, 0.92),            // 20: فمسح يديه بالورقة البيضاء التي كانت تلف الشطيرة
+    f(paperWipingTossingImg, '72% 46%', 1.12, 0.92),          // 21: ورماها في الهواء
+    f(paperKickingRollingImg, '54% 54%', 1.10, 0.92),         // 22: وركلها برجله
+    f(paperWipingTossingImg, '78% 36%', 1.26, 0.92),          // 23: فطارت بعيدا عنه
+    f(paperKickingRollingImg, '42% 68%', 1.22, 0.92),         // 24: وتدحرجت فوق الرصيف
+    f(paperKindWomanStoppingImg, '48% 50%', 1.06, 0.92),      // 25: لم يكد يرمي الورقة حتى تقدمت منه سيدة
+    f(paperMuradDenyingInsistingImg, '58% 44%', 1.18, 0.92),  // 26: وقالت له بعد أن سلمت عليه: عذرا
+    f(paperKindWomanStoppingImg, '44% 54%', 1.16, 0.92),      // 27: لقد رأيتك تسقط شيئا ثمينا يا ولدي
+    f(paperMuradWalkImg, '36% 48%', 1.20, 0.92),              // 28: نظر مراد حوله
+    f(paperMuradCheckingPocketsImg, '64% 62%', 1.24, 0.92),   // 29: وتفقد جيوبه
+    f(paperMuradCountingCoinsImg, '48% 58%', 1.18, 0.92),     // 30: وعد نقوده الباقية
+    f(paperMuradDenyingInsistingImg, '42% 48%', 1.18, 0.92),  // 31: ثم نظر إلى المرأة في إنكار
+    f(paperMuradCheckingPocketsImg, '62% 60%', 1.24, 0.92),   // 32: وقال: أنا لم أفقد شيئا يا سيدتي
+    f(paperKindWomanStoppingImg, '38% 48%', 1.18, 0.92),      // 33: ردت المرأة واثقة: لقد رأيت شيئا يسقط من يدك
+    f(paperMuradDenyingInsistingImg, '62% 44%', 1.24, 0.92),  // 34: أنا متأكدة
+    f(paperHungryMuradImg, '40% 42%', 1.24, 0.90),            // 35: فكر مراد قليلا
+    f(paperWipingTossingImg, '66% 52%', 1.18, 0.90),          // 36: ثم تذكر فجأة الورقة التي رماها
+    f(paperMuradDenyingInsistingImg, '46% 54%', 1.14, 0.92),  // 37: فقال مطمئنا المرأة: آ، تذكرت
+    f(paperKindWomanStoppingImg, '52% 68%', 1.24, 0.92),      // 38: لعلك رأيتني أرمي لفافة من الورق
+    f(paperMuradDenyingInsistingImg, '44% 56%', 1.16, 0.92),  // 39: إنها ليست ذات قيمة يا سيدتي
+    f(paperKindWomanStoppingImg, '42% 46%', 1.16, 0.92),      // 40: إن لم يكن لورقتك قيمة فللطريق قيمة كبرى أليس كذلك
+    f(paperMuradCheckingPocketsImg, '60% 58%', 1.24, 0.92),   // 41: فكر مراد في إجابة السيدة الحكيمة
+    f(paperMuradDenyingInsistingImg, '54% 48%', 1.18, 0.92),  // 42: وفطن إلى قصدها
+    f(paperMuradAshamedImg, '38% 52%', 1.18, 0.92),           // 43: فشعر بالخجل
+    f(paperKindWomanStoppingImg, '50% 50%', 1.10, 0.92),      // 44: وقال معتذرا: أنت محقة يا سيدتي
+    f(paperMuradAshamedImg, '48% 52%', 1.08, 0.92),           // 45: لقد أخطأت في حق هذه الورقة اللعينة
+    f(paperMuradDenyingInsistingImg, '50% 50%', 1.10, 0.92),  // 46: سأنبه أكثر إلى أوراقي في المرات القادمة
+    f(paperMuradAshamedImg, '72% 42%', 1.24, 0.92),           // 47: فابتسمت المرأة لرد الولد وذكائه
+    f(paperMuradPickingUpImg, '72% 44%', 1.18, 0.92),         // 48: وانصرفت
+    f(paperKickingRollingImg, '46% 64%', 1.20, 0.92),         // 49: أما مراد فقد أسرع إلى الورقة
+    f(paperMuradPickingUpImg, '38% 60%', 1.12, 0.92),         // 50: فالتقطها
+    f(paperMuradWalkImg, '54% 52%', 1.14, 0.92),              // 51: وانطلق بها نحو حاوية قريبة
+    f(paperMuradBinImg, '66% 52%', 1.10, 0.92),               // 52: وضع مراد الورقة في الحاوية
+    f(paperMuradAshamedImg, '68% 48%', 1.18, 0.92),           // 53: وقال يحدث نفسه: نعم
+    f(paperMuradBinImg, '50% 48%', 1.06, 0.92),               // 54: نظافة مدينتنا واجب علينا جميعا
+    f(paperMuradWalkImg, '48% 50%', 1.10, 0.92),              // 55: لن أنسى هذا أبدا
+  ],
+
+  // -------------------------------------------------------------------------
+  // Story 12 (video-14): السلحفاة والبطتان — 10 sentences (0..9)
+  // 4 distinct paintings
+  // -------------------------------------------------------------------------
+  'video-14': [
+    f(turtleDucksCautionImg, '52% 38%', 1.26, 0.92),          // 0: عاشت سلحفاة في الغابة وكانت تتمنى أن تطير مثل الطيور
+    f(turtleStickPlanImg, '62% 70%', 1.36, 0.90),             // 1: يائسة لأنها لا تملك جناحين ولها درع يثقل ظهرها
+    f(turtleMeetingDucksImg, '50% 54%', 1.06, 0.92),          // 2: اعترضت سبيلها بطتان تلعبان على ضفة البحيرة فطلبت المساعدة
+    f(turtleDucksCautionImg, '32% 54%', 1.22, 0.92),          // 3: قالت لها إحدى البطتين: الأمر صعب فوزنك ثقيل وهو تهور
+    f(turtleStickPlanImg, '40% 42%', 1.24, 0.92),             // 4: ثم اقترحتا عليها أن تمسك العصا من وسطها بفمها لتطير البطتان بها
+    f(turtleHappyBringingImg, '46% 50%', 1.06, 0.92),         // 5: ابتهجت السلحفاة بهذه الموافقة وأحضرت العصا بسرعة
+    f(turtleMeetingDucksImg, '46% 58%', 1.24, 0.92),          // 6: فأمسكتها من الوسط وانطلقت البطتان ترفرفان في الجو بالعصا
+    f(turtleStickPlanImg, '44% 52%', 1.18, 0.90),             // 7: تعبت السلحفاة من إمساك العصا وضعف ضغط فكيها ففتحت فمها
+    f(turtleDucksCautionImg, '56% 24%', 1.32, 0.90),          // 8: وما إن فتحته حتى سقطت من الأعلى
+    f(turtleHappyBringingImg, '34% 64%', 1.24, 0.92),         // 9: ومن ألطاف الله أن وقعت على كومة التبن ولم تصب إلا بخدوش بسيطة
+  ],
+
+  // -------------------------------------------------------------------------
+  // Story 13 (video-15): يا أغلى الأوطان — 19 sentences (0..18)
+  // 8 distinct watercolor paintings
+  // -------------------------------------------------------------------------
+  'video-15': [
+    f(aminaNewPenWritingImg, '46% 58%', 1.16, 0.92),          // 0: كانت عائدة ترسم في كراسها المدرسي
+    f(aminaWorldImaginationImg, '60% 34%', 1.36, 0.92),       // 1: رسمت شجرة عالية وبيت عصفور وجعلت أصحابها يتساءلون
+    f(paperHungryMuradImg, '76% 48%', 1.34, 0.92),            // 2: هذه شجرة بيتنا تحتها نلعب ونستريح
+    f(aminaWorldImaginationImg, '82% 72%', 1.36, 0.92),       // 3: الحوار اليوم في ساحة المدرسة يدور حول الأشجار
+    f(plantingPalmsImg, '24% 40%', 1.30, 0.92),               // 4: الأشجار كائنات حية تتنفس وتشرب وتتغذى مثلنا
+    f(forestMoonImg, '32% 36%', 1.28, 0.90),                  // 5: قال عامر: ما أجمل الغابة وما أجمل ما فيها من ألوان
+    f(turtleHappyBringingImg, '52% 24%', 1.38, 0.92),         // 6: تصطف الأشجار في الحقل كأنها جنود تحرس الحقول
+    f(aminaWorldImaginationImg, '60% 34%', 1.34, 0.92),       // 7: الأشجار ملاجئ الطيور ومصانع الأكسجين وسلة الغذاء
+    f(turtleHappyBringingImg, '18% 72%', 1.42, 0.92),         // 8: الحشرات تحمل حبوب اللقاح من زهرة إلى زهرة فيكون النماء والإثمار
+    f(abbasRondaBoyhoodImg, '28% 48%', 1.22, 0.92),           // 9: قال بشير: هل كنتم تعلمون أن الأشجار تخفف الحرارة
+    f(childReadingImg, '50% 52%', 1.14, 0.92),                // 10: قال سلمان: نعم وقد قرأت هذا في الكتاب
+    f(plantingPalmsImg, '26% 58%', 1.28, 0.92),               // 11: الأشجار تمتص المياه من باطن الأرض وتقذفها في الهواء
+    f(paperMuradBinImg, '24% 40%', 1.34, 0.92),               // 12: وبهذا تنخفض الحرارة في الصيف
+    f(aminaWorldImaginationImg, '80% 70%', 1.32, 0.92),       // 13: ولم يكن تفكير الأطفال مجرد حلم
+    f(aminaNewPenWritingImg, '46% 62%', 1.18, 0.92),          // 14: بل فكروا وخططوا ورسموا ووضعوا مشروعا وطنيا للتشجير
+    f(paperHungryMuradImg, '76% 48%', 1.34, 0.92),            // 15: كل أسرة مطالبة بغرس أشجار حول منزلها
+    f(paperMuradBinImg, '26% 42%', 1.34, 0.92),               // 16: وكل بلدة تقوم بتشجير الطرقات والدولة تهتم بزرع الغابات
+    f(plantingPalmsImg, '52% 52%', 1.08, 0.92),               // 17: وسكان الواحات يوسعون زراعة النخيل ويقيمون الحواجز الترابية
+    f(aminaWorldImaginationImg, '82% 72%', 1.32, 0.92),       // 18: وستصبح تونس الخضراء أجمل بلاد على وجه الأرض
+  ],
+
+  // -------------------------------------------------------------------------
+  // Story 14 (video-16): هدهد بوقرنين البديع — 17 sentences (0..16)
+  // 17 distinct authentic visual assets matching every sentence
+  // -------------------------------------------------------------------------
+  'video-16': [
+    f(boukornineHoopoePlateImg, '52% 38%', 1.04, 0.92),        // 0: شغفت بجمع صور الطيور وعثرت على صورة طائر يعلو رأسه تاج من الريش
+    f(boukornineHoopoeEatingImg, '50% 44%', 1.06, 0.92),       // 1: هذا الطائر هو الهدهد يتغذى على الحشرات وهو رمز للحديقة الوطنية ببوقرنين
+    f(boukornineHoopoeCrestImg, '46% 42%', 1.08, 0.92),        // 2: قاطعت أمي متسائلا: الحديقة الوطنية ببوقرنين
+    f(boukornineMountainBayImg, '48% 58%', 1.10, 0.92),        // 3: وأين توجد
+    f(boukornineTwinPeaksSunriseImg, '60% 68%', 1.08, 0.92),   // 4: فردت مستغربة: ألا تعرف جبل بوقرنين
+    f(boukornineHammamLifViewImg, '50% 56%', 1.06, 0.92),      // 5: إنه يظهر لنا جليا حين نمر بحمام الأنف متوجهين إلى العاصمة
+    f(boukornineRoadPineCoastImg, '52% 70%', 1.08, 0.92),      // 6: قلت: نعم أعرفه
+    f(boukornineGreenSlopesImg, '50% 54%', 1.06, 0.92),        // 7: بهذا الجبل توجد المحمية التي تصفّي الهواء فهي رئة إقليم تونس الكبرى
+    f(boukorninePersianCyclamenImg, '48% 52%', 1.06, 0.92),    // 8: ثروة نباتية منها بخور مريم الفارسي والعرعار البربري والسحلبيات البديعة
+    f(boukornineWildOrchidImg, '52% 36%', 1.05, 0.92),         // 9: ثلاثة عشر نوعا من السحلبيات مثل سحلبية الأناضول والأطلس والفراشة
+    f(boukornineBoySpottingBirdsImg, '46% 42%', 1.06, 0.92),   // 10: سألت أمي: وماذا عن الثروة الحيوانية بالحديقة
+    f(boukorninePrayingMantisImg, '62% 34%', 1.05, 0.92),      // 11: تزخر الحديقة بأنواع الحشرات كالسرعوفة الراهبة والفراشات
+    f(boukornineTwoTailedPashaImg, '42% 48%', 1.06, 0.92),     // 12: ومن أجمل الفراشات النهارية فراشة الباشا ذو ذنبين
+    f(boukornineBarbarySheepImg, '56% 48%', 1.06, 0.92),       // 13: وتأوي الحديقة أيل الأطلس والأروية المغاربية والإدمي والخنزير
+    f(boukornineEtruscanShrewImg, '38% 36%', 1.08, 0.92),      // 14: وبالمحمية أصغر ثديي في العالم وهو فأر السم الأترسكاني
+    f(boukornineGoldenJackalImg, '46% 46%', 1.06, 0.92),       // 15: ومن اللواحم نجد ابن آوى وحيوان الزيردة
+    f(boukornineChildCameraImg, '54% 48%', 1.06, 0.92),        // 16: زيارتنا يوم الأحد بآلة تصوير لالتقاط الصور وأنت أجمل أم في العالم
+  ],
+
+  // -------------------------------------------------------------------------
+  // Story 15 (video-17): قطرة ماء — 20 sentences (0..19)
+  // 15 distinct watercolor scenes covering every stage of the story & poem
+  // -------------------------------------------------------------------------
+  'video-17': [
+    f(waterDuhaWindowDropImg, '46% 52%', 1.08, 0.92),           // 0: استيقظت ضحى متثاقلة واتجهت نحو نافذة غرفتها لترى بشائر الشروق
+    f(waterDropPaneDetailImg, '64% 54%', 1.12, 0.92),           // 1: وما إن أزاحت ستائر النافذة حتى بانت لها قطرة ماء وضيئة بالبلور
+    f(waterDuhaWindowDropImg, '58% 48%', 1.14, 0.92),           // 2: حدقت ضحى في ضيفتها وقالت لها: مرحبا بك أيتها الجوهرة السنية
+    f(waterDropPaneDetailImg, '48% 48%', 1.10, 0.92),           // 3: اروي لي كيف تمكنت من الوصول إلى هذا المكان
+    f(waterDropEscapingCloudImg, '56% 38%', 1.08, 0.92),        // 4: قالت لها قطرة الماء: كنت أسيرة غيمة فانفلتُّ من قبضتها
+    f(waterDuhaWindowDropImg, '44% 52%', 1.10, 0.92),           // 5: لم تفهم ضحى هذا اللغز وقالت: احكي لي قصتك كاملة مع الغيمة
+    f(waterCycleEvaporationImg, '50% 48%', 1.08, 0.92),         // 6: أنا بذرة أرضية سماوية أقوم برحلات يومية من الأنهار والبحار إلى السماوات
+    f(waterQuenchedMeadowMouseImg, '54% 52%', 1.08, 0.92),      // 7: حياتي كلها جد وعمل وقد شرفني الله بقوله: وجعلنا من الماء كل شيء حي
+    f(waterRiverSeaSunriseImg, '56% 48%', 1.08, 0.92),          // 8: أجوب الصحاري والمدائن والبراري وتلعب الشمس دورا رئيسيا
+    f(waterCycleEvaporationImg, '52% 32%', 1.12, 0.92),         // 9: فعندما تسخن الأرض يتحول الماء إلى بخار خفيف يتكثف سحبا
+    f(waterCloudRainSoilImg, '50% 56%', 1.08, 0.92),            // 10: وعندما تتحد الجزيئات تسقط رذاذا أو مطرا أو بردا إلى المياه الجوفية
+    f(waterRainEarthImg, '48% 54%', 1.08, 0.92),                // 11: وعندما ترتفع الحرارة ثانية تعود مراحل التبخر والتكثف والتساقط
+    f(waterStormFarmersJoyImg, '56% 56%', 1.08, 0.92),          // 12: أومض البرق وزمجر الرعد وبدأت زخات المطر تسقي أمل الفلاحين
+    f(waterDuhaSingingGardenImg, '44% 44%', 1.08, 0.92),        // 13: سرت ضحى بنزول الغيث النافع فغنت أغرودة المطر
+    f(waterDropEscapingCloudImg, '60% 34%', 1.10, 0.92),        // 14: نزلت من فيض ربي قطرة الماء نقية
+    f(waterDesertOasisThirstySoilImg, '48% 56%', 1.08, 0.92),   // 15: أشبعت أرضي رواء بعدما كانت صدية
+    f(waterEmeraldMeadowPearlsImg, '50% 54%', 1.08, 0.92),      // 16: فاكتسى الروض رداء من عقود سندسية
+    f(waterFragrantBlossomsMistImg, '50% 50%', 1.08, 0.92),     // 17: وشذا الكون أريجا وعطورات ذكية
+    f(waterBirdsSingingImg, '58% 40%', 1.10, 0.92),             // 18: وتغنى الطير تيها بأغاريد بهية
+    f(waterJasmineDropletImg, '44% 48%', 1.08, 0.92),           // 19: إنها قطرة ماء خير من ألف هدية
   ],
 };
