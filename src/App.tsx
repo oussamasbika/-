@@ -687,6 +687,7 @@ export default function App() {
   const activeAudioRef = useRef<HTMLAudioElement | null>(null);
   const welcomeAudioRef = useRef<HTMLAudioElement | null>(null);
   const playbackTokenRef = useRef(0);
+  const hasPlayedWelcome1Ref = useRef(false);
   const rawAudioCacheRef = useRef<Map<string, ArrayBuffer>>(new Map());
   const decodedAudioCacheRef = useRef<Map<string, AudioBuffer>>(new Map());
 
@@ -765,6 +766,8 @@ export default function App() {
       activeAudioRef.current = null;
     }
     if (welcomeAudioRef.current) {
+      welcomeAudioRef.current.onended = null;
+      welcomeAudioRef.current.onerror = null;
       welcomeAudioRef.current.pause();
       welcomeAudioRef.current = null;
     }
@@ -1135,10 +1138,69 @@ export default function App() {
 
   const progress = Math.round((watchedVideos.length / VIDEOS.length) * 100);
 
+  const playPreloadedBlobChunk = async (
+    chunkText: string,
+    token: number,
+    onPlaybackStarted?: () => void
+  ): Promise<void> => {
+    const raw = await fetchRawTtsBuffer(chunkText);
+    if (playbackTokenRef.current !== token) return;
+
+    const blob = new Blob([raw.slice(0)], { type: 'audio/mpeg' });
+    const objectUrl = URL.createObjectURL(blob);
+
+    await new Promise<void>((resolve, reject) => {
+      if (playbackTokenRef.current !== token) {
+        URL.revokeObjectURL(objectUrl);
+        resolve();
+        return;
+      }
+
+      const audio = new Audio(objectUrl);
+      configureChildAudio(audio);
+      welcomeAudioRef.current = audio;
+
+      const cleanup = () => {
+        if (welcomeAudioRef.current === audio) {
+          welcomeAudioRef.current = null;
+        }
+        audio.onended = null;
+        audio.onerror = null;
+        URL.revokeObjectURL(objectUrl);
+      };
+
+      audio.onended = () => {
+        cleanup();
+        resolve();
+      };
+
+      audio.onerror = () => {
+        cleanup();
+        reject(new Error('Blob TTS audio failed'));
+      };
+
+      audio.play()
+        .then(() => {
+          if (playbackTokenRef.current === token) {
+            onPlaybackStarted?.();
+          } else {
+            audio.pause();
+            cleanup();
+            resolve();
+          }
+        })
+        .catch((err) => {
+          cleanup();
+          reject(err);
+        });
+    });
+  };
+
   const playWelcomeChildVoice = async (
     welcomeText: string = WELCOME_PAGE_1_TEXT,
-    isAutoplay: boolean = false
-  ) => {
+    isAutoplay: boolean = false,
+    onPlaybackStarted?: () => void
+  ): Promise<boolean> => {
     if (!isAutoplay) {
       stopAllAudio();
     } else {
@@ -1147,86 +1209,182 @@ export default function App() {
     const token = playbackTokenRef.current;
     const ctx = getAudioContext();
 
-    if (ctx && ctx.state === 'suspended') {
-      ctx.resume().catch(() => {});
-    }
+    // Synchronously initiate AudioContext resume while user activation is active
+    const resumePromise = ctx && ctx.state === 'suspended'
+      ? ctx.resume().catch(() => {})
+      : null;
 
     const chunks = splitIntoTtsChunks(welcomeText);
-    if (chunks.length === 0) return;
+    if (chunks.length === 0) return false;
 
     try {
       if (ctx) {
-        if (ctx.state === 'suspended') {
-          await ctx.resume().catch(() => {});
+        if (resumePromise) {
+          await resumePromise;
         }
-        if (ctx.state !== 'running') {
-          if (isAutoplay) return;
-          throw new Error('AudioContext not running');
+        if (ctx.state === 'running') {
+          const decodedBuffers = await Promise.all(
+            chunks.map(chunk => fetchDecodedTtsBuffer(chunk, ctx))
+          );
+          if (playbackTokenRef.current !== token) return false;
+          onPlaybackStarted?.();
+          for (const decoded of decodedBuffers) {
+            if (playbackTokenRef.current !== token) return true;
+            await playAudioBufferChunk(decoded, ctx, token);
+          }
+          return true;
         }
-
-        const decodedBuffers = await Promise.all(
-          chunks.map(chunk => fetchDecodedTtsBuffer(chunk, ctx))
-        );
-        for (const decoded of decodedBuffers) {
-          if (playbackTokenRef.current !== token) return;
-          await playAudioBufferChunk(decoded, ctx, token);
-        }
-        return;
       }
     } catch {
-      if (isAutoplay) return;
+      if (playbackTokenRef.current !== token) return false;
     }
 
-    if (isAutoplay) return;
+    // Try playing the exact /api/tts MP3 stream via preloaded HTMLAudioElement Blob
+    try {
+      let startedNotified = false;
+      for (const chunk of chunks) {
+        if (playbackTokenRef.current !== token) return startedNotified;
+        await playPreloadedBlobChunk(chunk, token, () => {
+          if (!startedNotified) {
+            startedNotified = true;
+            onPlaybackStarted?.();
+          }
+        });
+      }
+      return true;
+    } catch {
+      if (isAutoplay) return false;
+    }
+
+    if (playbackTokenRef.current !== token) return false;
 
     try {
+      onPlaybackStarted?.();
       for (const chunk of chunks) {
-        if (playbackTokenRef.current !== token) return;
+        if (playbackTokenRef.current !== token) return true;
         await playDirectAudioChunk(chunk, token);
       }
+      return true;
     } catch {
       if (window.speechSynthesis && playbackTokenRef.current === token) {
         window.speechSynthesis.cancel();
         const welcomeMsg = createChildUtterance(welcomeText);
         window.speechSynthesis.speak(welcomeMsg);
+        return true;
       }
     }
+    return false;
   };
 
-  // Attempt to play welcome voice automatically (might be blocked until user interaction)
+  // Preload welcome voice clips and play "مرحباً بك في منصتك الرقمية" on entry
   useEffect(() => {
-    if (showWelcome) {
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
-      fetchRawTtsBuffer(WELCOME_PAGE_1_TEXT).catch(() => {});
-      splitIntoTtsChunks(WELCOME_PAGE_2_TEXT).forEach(chunk => {
-        fetchRawTtsBuffer(chunk).catch(() => {});
-      });
-      const timer = setTimeout(() => {
-        playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, true).catch(() => {});
-      }, 1500);
-      return () => {
-        clearTimeout(timer);
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
-      };
-    } else {
+    if (!showWelcome) {
+      hasPlayedWelcome1Ref.current = false;
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
+      return;
     }
+
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
+    const ctx = getAudioContext();
+    splitIntoTtsChunks(WELCOME_PAGE_1_TEXT).forEach(chunk => {
+      if (ctx) {
+        fetchDecodedTtsBuffer(chunk, ctx).catch(() => {});
+      } else {
+        fetchRawTtsBuffer(chunk).catch(() => {});
+      }
+    });
+    splitIntoTtsChunks(WELCOME_PAGE_2_TEXT).forEach(chunk => {
+      if (ctx) {
+        fetchDecodedTtsBuffer(chunk, ctx).catch(() => {});
+      } else {
+        fetchRawTtsBuffer(chunk).catch(() => {});
+      }
+    });
+
+    const timer = setTimeout(() => {
+      if (hasPlayedWelcome1Ref.current) return;
+      playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, true, () => {
+        hasPlayedWelcome1Ref.current = true;
+      }).catch(() => {});
+    }, 150);
+
+    return () => {
+      clearTimeout(timer);
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
   }, [showWelcome]);
 
+  // If browser autoplay policy blocks sound on initial load, trigger Page 1 greeting on first user gesture
+  useEffect(() => {
+    if (!showWelcome || welcomePage !== 1 || hasPlayedWelcome1Ref.current) return;
+
+    let attemptingGesture = false;
+
+    const cleanupListeners = () => {
+      window.removeEventListener('click', handleFirstGesture, true);
+      window.removeEventListener('keydown', handleFirstGesture, true);
+    };
+
+    const handleFirstGesture = (e: Event) => {
+      if (hasPlayedWelcome1Ref.current || attemptingGesture) {
+        if (hasPlayedWelcome1Ref.current) cleanupListeners();
+        return;
+      }
+      if (
+        e.target instanceof Element &&
+        (e.target.closest('[data-welcome-nav="next"]') ||
+          e.target.closest('[data-welcome-greeting="true"]'))
+      ) {
+        return;
+      }
+      if (e.type === 'keydown') {
+        const key = (e as KeyboardEvent).key;
+        if (['Tab', 'Shift', 'Control', 'Alt', 'Meta', 'Escape'].includes(key)) {
+          return;
+        }
+      }
+
+      attemptingGesture = true;
+      playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, false, () => {
+        hasPlayedWelcome1Ref.current = true;
+        cleanupListeners();
+      })
+        .then((played) => {
+          attemptingGesture = false;
+          if (played) {
+            hasPlayedWelcome1Ref.current = true;
+            cleanupListeners();
+          }
+        })
+        .catch(() => {
+          attemptingGesture = false;
+        });
+    };
+
+    window.addEventListener('click', handleFirstGesture, true);
+    window.addEventListener('keydown', handleFirstGesture, true);
+
+    return cleanupListeners;
+  }, [showWelcome, welcomePage]);
+
   const handleGoToWelcomePage1 = () => {
+    hasPlayedWelcome1Ref.current = true;
     stopAllAudio();
     setWelcomePage(1);
   };
 
   const handleNextWelcomePage = () => {
+    hasPlayedWelcome1Ref.current = true;
     setWelcomePage(2);
     playWelcomeChildVoice(WELCOME_PAGE_2_TEXT, false).catch(() => {});
   };
 
   const handleStart = () => {
+    hasPlayedWelcome1Ref.current = true;
     stopAllAudio();
     setShowWelcome(false);
     setWelcomePage(1);
@@ -1319,7 +1477,14 @@ export default function App() {
                         </div>
                       </div>
 
-                      <h1 className="font-serif text-[22px] sm:text-4xl md:text-[42px] font-bold mb-2.5 sm:mb-4 bg-gradient-to-l from-amber-100 via-amber-300 to-orange-400 bg-clip-text text-transparent leading-tight">
+                      <h1
+                        data-welcome-greeting="true"
+                        onClick={() => {
+                          hasPlayedWelcome1Ref.current = true;
+                          playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, false).catch(() => {});
+                        }}
+                        className="font-serif text-[22px] sm:text-4xl md:text-[42px] font-bold mb-2.5 sm:mb-4 bg-gradient-to-l from-amber-100 via-amber-300 to-orange-400 bg-clip-text text-transparent leading-tight cursor-pointer select-none"
+                      >
                         مرحباً بك في منصتك الرقمية
                       </h1>
 
@@ -1353,6 +1518,7 @@ export default function App() {
                       </p>
 
                       <button 
+                        data-welcome-nav="next"
                         onClick={handleNextWelcomePage}
                         className="group relative px-9 sm:px-10 py-2.5 sm:py-3 bg-gradient-to-l from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 rounded-2xl font-bold text-base sm:text-lg transition-all hover:-translate-y-0.5 active:translate-y-0 shadow-[0_12px_32px_rgba(234,88,12,0.42)] text-white cursor-pointer inline-flex items-center justify-center"
                       >
@@ -1437,6 +1603,7 @@ export default function App() {
                   />
                   <button
                     type="button"
+                    data-welcome-nav="next"
                     onClick={handleNextWelcomePage}
                     aria-label="الصفحة الثانية"
                     className={`h-1.5 rounded-full transition-all cursor-pointer ${
