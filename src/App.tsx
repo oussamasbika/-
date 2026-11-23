@@ -772,11 +772,14 @@ export default function App() {
       welcomeAudioRef.current.pause();
       welcomeAudioRef.current = null;
     }
-    if (welcomeGreetingAudioRef.current) {
-      welcomeGreetingAudioRef.current.onended = null;
-      welcomeGreetingAudioRef.current.onerror = null;
-      welcomeGreetingAudioRef.current.pause();
-      try { welcomeGreetingAudioRef.current.currentTime = 0; } catch {}
+    const greetingAudio = welcomeGreetingAudioRef.current || (typeof document !== 'undefined'
+      ? document.getElementById('welcome-greeting-audio') as HTMLAudioElement | null
+      : null);
+    if (greetingAudio) {
+      greetingAudio.onended = null;
+      greetingAudio.onerror = null;
+      greetingAudio.pause();
+      try { greetingAudio.currentTime = 0; } catch {}
     }
     if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
       audioCtxRef.current.resume().catch(() => {});
@@ -1311,7 +1314,10 @@ export default function App() {
       playbackTokenRef.current += 1;
     }
     const token = playbackTokenRef.current;
-    const greetingAudio = welcomeGreetingAudioRef.current;
+    const greetingAudio = welcomeGreetingAudioRef.current || (typeof document !== 'undefined'
+      ? document.getElementById('welcome-greeting-audio') as HTMLAudioElement | null
+      : null);
+    welcomeGreetingAudioRef.current = greetingAudio;
 
     if (greetingAudio) {
       applyChildVoicePitch(greetingAudio);
@@ -1406,7 +1412,7 @@ export default function App() {
     });
   };
 
-  // Preload welcome voice clips and immediately play "مرحباً بك في منصتك الرقمية" on entry
+  // Sync with millisecond-0 inline welcome greeting audio in index.html & preload Page 2 audio
   useEffect(() => {
     if (!showWelcome) {
       hasPlayedWelcome1Ref.current = false;
@@ -1434,7 +1440,22 @@ export default function App() {
       }
     });
 
-    if (!hasPlayedWelcome1Ref.current) {
+    const greetingWin = window as Window & {
+      __welcomeGreetingState?: {
+        started?: boolean;
+        finished?: boolean;
+        audio?: HTMLAudioElement | null;
+      };
+    };
+    const inlineAudio = greetingWin.__welcomeGreetingState?.audio ||
+      (document.getElementById('welcome-greeting-audio') as HTMLAudioElement | null);
+    if (inlineAudio) {
+      welcomeGreetingAudioRef.current = inlineAudio;
+    }
+
+    if (greetingWin.__welcomeGreetingState?.started) {
+      hasPlayedWelcome1Ref.current = true;
+    } else if (!hasPlayedWelcome1Ref.current) {
       playWelcome1Greeting(true, () => {
         hasPlayedWelcome1Ref.current = true;
       }).catch(() => {});
@@ -1510,23 +1531,9 @@ export default function App() {
   };
 
   const handleNextWelcomePage = () => {
-    const shouldPlayWelcome1First = !hasPlayedWelcome1Ref.current;
     hasPlayedWelcome1Ref.current = true;
     setWelcomePage(2);
-
-    if (shouldPlayWelcome1First) {
-      playWelcome1Greeting(
-        false,
-        undefined,
-        () => {
-          playWelcomeChildVoice(WELCOME_PAGE_2_TEXT, false).catch(() => {});
-        }
-      ).catch(() => {
-        playWelcomeChildVoice(`${WELCOME_PAGE_1_TEXT}، ${WELCOME_PAGE_2_TEXT}`, false).catch(() => {});
-      });
-    } else {
-      playWelcomeChildVoice(WELCOME_PAGE_2_TEXT, false).catch(() => {});
-    }
+    playWelcomeChildVoice(WELCOME_PAGE_2_TEXT, false).catch(() => {});
   };
 
   const handleStart = () => {
@@ -1542,14 +1549,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-950 relative overflow-x-clip" dir="rtl">
-      <audio
-        ref={welcomeGreetingAudioRef}
-        src="/audio/welcome-greeting.mp3"
-        preload="auto"
-        aria-hidden="true"
-        className="hidden"
-        onLoadedMetadata={(e) => applyChildVoicePitch(e.currentTarget)}
-      />
       {/* Site-wide illustrated storybook background */}
       <div className="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
         {!siteBgError ? (
