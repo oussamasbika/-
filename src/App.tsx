@@ -532,6 +532,9 @@ const VIDEOS: Video[] = [
   }
 ];
 
+const WELCOME_PAGE_1_TEXT = "مَرْحَبًا بِكَ فِي مَنَصَّتِكَ الرَّقْمِيَّة";
+const WELCOME_PAGE_2_TEXT = "إِيمَانًا مِنَّا بِأَهَمِّيَّةِ الْمُطَالَعَةِ وَضَرُورَةِ تَقْرِيبِ الْقِصَّةِ مِنَ الْجَمِيعِ، اخْتَرْنَا أَنْ نُحَوِّلَ حَقِيبَةَ الْقِسْمِ لِلْمُطَالَعَةِ الْعَائِلِيَّةِ إِلَى حَقِيبَةِ مُطَالَعَةٍ رَقْمِيَّةٍ، حَتَّى نُقَرِّبَهَا أَكْثَرَ مِنْ جَمِيعِ الْأَوْلِيَاءِ وَالتَّلَامِيذِ.";
+
 export default function App() {
   const [currentVideo, setCurrentVideo] = useState<Video>(VIDEOS[0]);
   const [watchedVideos, setWatchedVideos] = useState<string[]>([]);
@@ -1132,9 +1135,24 @@ export default function App() {
 
   const progress = Math.round((watchedVideos.length / VIDEOS.length) * 100);
 
-  const playWelcomeChildVoice = async (isAutoplay: boolean = false) => {
-    const welcomeText = "مَرْحَبًا بِكَ فِي مَنَصَّتِكَ الرَّقْمِيَّة";
+  const playWelcomeChildVoice = async (
+    welcomeText: string = WELCOME_PAGE_1_TEXT,
+    isAutoplay: boolean = false
+  ) => {
+    if (!isAutoplay) {
+      stopAllAudio();
+    } else {
+      playbackTokenRef.current += 1;
+    }
+    const token = playbackTokenRef.current;
     const ctx = getAudioContext();
+
+    if (ctx && ctx.state === 'suspended') {
+      ctx.resume().catch(() => {});
+    }
+
+    const chunks = splitIntoTtsChunks(welcomeText);
+    if (chunks.length === 0) return;
 
     try {
       if (ctx) {
@@ -1145,23 +1163,14 @@ export default function App() {
           if (isAutoplay) return;
           throw new Error('AudioContext not running');
         }
-        const decoded = await fetchDecodedTtsBuffer(welcomeText, ctx);
-        if (welcomeSourceRef.current) {
-          try { welcomeSourceRef.current.stop(); } catch {}
-          welcomeSourceRef.current.disconnect();
+
+        const decodedBuffers = await Promise.all(
+          chunks.map(chunk => fetchDecodedTtsBuffer(chunk, ctx))
+        );
+        for (const decoded of decodedBuffers) {
+          if (playbackTokenRef.current !== token) return;
+          await playAudioBufferChunk(decoded, ctx, token);
         }
-        const source = ctx.createBufferSource();
-        source.buffer = decoded;
-        source.playbackRate.value = 1.18;
-        source.connect(ctx.destination);
-        welcomeSourceRef.current = source;
-        source.onended = () => {
-          if (welcomeSourceRef.current === source) {
-            welcomeSourceRef.current = null;
-          }
-          source.disconnect();
-        };
-        source.start(0);
         return;
       }
     } catch {
@@ -1171,17 +1180,12 @@ export default function App() {
     if (isAutoplay) return;
 
     try {
-      if (welcomeAudioRef.current) {
-        welcomeAudioRef.current.pause();
+      for (const chunk of chunks) {
+        if (playbackTokenRef.current !== token) return;
+        await playDirectAudioChunk(chunk, token);
       }
-      const audio = new Audio();
-      audio.setAttribute('referrerpolicy', 'no-referrer');
-      audio.src = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(welcomeText)}&tl=ar&client=tw-ob`;
-      configureChildAudio(audio);
-      welcomeAudioRef.current = audio;
-      await audio.play();
     } catch {
-      if (window.speechSynthesis) {
+      if (window.speechSynthesis && playbackTokenRef.current === token) {
         window.speechSynthesis.cancel();
         const welcomeMsg = createChildUtterance(welcomeText);
         window.speechSynthesis.speak(welcomeMsg);
@@ -1194,9 +1198,12 @@ export default function App() {
     if (showWelcome) {
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
-      fetchRawTtsBuffer("مَرْحَبًا بِكَ فِي مَنَصَّتِكَ الرَّقْمِيَّة").catch(() => {});
+      fetchRawTtsBuffer(WELCOME_PAGE_1_TEXT).catch(() => {});
+      splitIntoTtsChunks(WELCOME_PAGE_2_TEXT).forEach(chunk => {
+        fetchRawTtsBuffer(chunk).catch(() => {});
+      });
       const timer = setTimeout(() => {
-        playWelcomeChildVoice(true).catch(() => {});
+        playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, true).catch(() => {});
       }, 1500);
       return () => {
         clearTimeout(timer);
@@ -1209,12 +1216,18 @@ export default function App() {
     }
   }, [showWelcome]);
 
+  const handleGoToWelcomePage1 = () => {
+    stopAllAudio();
+    setWelcomePage(1);
+  };
+
   const handleNextWelcomePage = () => {
     setWelcomePage(2);
-    playWelcomeChildVoice(false).catch(() => {});
+    playWelcomeChildVoice(WELCOME_PAGE_2_TEXT, false).catch(() => {});
   };
 
   const handleStart = () => {
+    stopAllAudio();
     setShowWelcome(false);
     setWelcomePage(1);
   };
@@ -1391,7 +1404,7 @@ export default function App() {
 
                       <div className="grid grid-cols-[auto_1fr] sm:flex items-center justify-center gap-2.5 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
                         <button
-                          onClick={() => setWelcomePage(1)}
+                          onClick={handleGoToWelcomePage1}
                           className="group px-4 sm:px-6 py-2.5 sm:py-3 bg-white/10 hover:bg-white/15 backdrop-blur-md border border-amber-200/20 rounded-2xl font-bold text-sm sm:text-base text-amber-100 transition-all cursor-pointer flex items-center justify-center gap-1.5 whitespace-nowrap"
                         >
                           <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-0.5 transition-transform" />
@@ -1416,7 +1429,7 @@ export default function App() {
                 <div className="mt-3.5 sm:mt-5 flex items-center justify-center gap-2" aria-label="تقدم صفحات الترحيب">
                   <button
                     type="button"
-                    onClick={() => setWelcomePage(1)}
+                    onClick={handleGoToWelcomePage1}
                     aria-label="الصفحة الأولى"
                     className={`h-1.5 rounded-full transition-all cursor-pointer ${
                       welcomePage === 1 ? 'w-8 bg-amber-400' : 'w-2.5 bg-amber-200/30 hover:bg-amber-200/50'
@@ -1424,7 +1437,7 @@ export default function App() {
                   />
                   <button
                     type="button"
-                    onClick={() => setWelcomePage(2)}
+                    onClick={handleNextWelcomePage}
                     aria-label="الصفحة الثانية"
                     className={`h-1.5 rounded-full transition-all cursor-pointer ${
                       welcomePage === 2 ? 'w-8 bg-amber-400' : 'w-2.5 bg-amber-200/30 hover:bg-amber-200/50'
