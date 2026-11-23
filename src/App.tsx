@@ -542,7 +542,6 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<string>('الكل');
   const [showWelcome, setShowWelcome] = useState(true);
   const [welcomePage, setWelcomePage] = useState<1 | 2>(1);
-  const [welcomeAutoplayBlocked, setWelcomeAutoplayBlocked] = useState(false);
   const [failedThumbIds, setFailedThumbIds] = useState<Record<string, boolean>>({});
   const [siteBgError, setSiteBgError] = useState(false);
   
@@ -687,6 +686,7 @@ export default function App() {
   const welcomeSourceRef = useRef<AudioBufferSourceNode | null>(null);
   const activeAudioRef = useRef<HTMLAudioElement | null>(null);
   const welcomeAudioRef = useRef<HTMLAudioElement | null>(null);
+  const welcomeGreetingAudioRef = useRef<HTMLAudioElement | null>(null);
   const playbackTokenRef = useRef(0);
   const hasPlayedWelcome1Ref = useRef(false);
   const rawAudioCacheRef = useRef<Map<string, ArrayBuffer>>(new Map());
@@ -771,6 +771,12 @@ export default function App() {
       welcomeAudioRef.current.onerror = null;
       welcomeAudioRef.current.pause();
       welcomeAudioRef.current = null;
+    }
+    if (welcomeGreetingAudioRef.current) {
+      welcomeGreetingAudioRef.current.onended = null;
+      welcomeGreetingAudioRef.current.onerror = null;
+      welcomeGreetingAudioRef.current.pause();
+      try { welcomeGreetingAudioRef.current.currentTime = 0; } catch {}
     }
     if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
       audioCtxRef.current.resume().catch(() => {});
@@ -1281,11 +1287,129 @@ export default function App() {
     return false;
   };
 
-  // Preload welcome voice clips and play "مرحباً بك في منصتك الرقمية" on entry
+  const applyChildVoicePitch = (audio: HTMLAudioElement) => {
+    const pitchAudio = audio as HTMLAudioElement & {
+      preservesPitch?: boolean;
+      mozPreservesPitch?: boolean;
+      webkitPreservesPitch?: boolean;
+    };
+    pitchAudio.preservesPitch = false;
+    pitchAudio.mozPreservesPitch = false;
+    pitchAudio.webkitPreservesPitch = false;
+    pitchAudio.playbackRate = 1.18;
+    pitchAudio.volume = 0.95;
+  };
+
+  const playWelcome1Greeting = (
+    isAutoplay: boolean = false,
+    onPlaybackStarted?: () => void,
+    onEnded?: () => void
+  ): Promise<boolean> => {
+    if (!isAutoplay) {
+      stopAllAudio();
+    } else {
+      playbackTokenRef.current += 1;
+    }
+    const token = playbackTokenRef.current;
+    const greetingAudio = welcomeGreetingAudioRef.current;
+
+    if (greetingAudio) {
+      applyChildVoicePitch(greetingAudio);
+      try { greetingAudio.currentTime = 0; } catch {}
+
+      return new Promise<boolean>((resolve) => {
+        let settled = false;
+
+        greetingAudio.onended = () => {
+          greetingAudio.onended = null;
+          greetingAudio.onerror = null;
+          if (playbackTokenRef.current === token) {
+            onEnded?.();
+          }
+          if (!settled) {
+            settled = true;
+            resolve(true);
+          }
+        };
+
+        greetingAudio.onerror = () => {
+          greetingAudio.onended = null;
+          greetingAudio.onerror = null;
+          if (!settled) {
+            settled = true;
+            if (isAutoplay) {
+              playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, true, onPlaybackStarted)
+                .then((played) => {
+                  if (played && playbackTokenRef.current === token) onEnded?.();
+                  resolve(played);
+                })
+                .catch(() => resolve(false));
+            } else {
+              playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, false, onPlaybackStarted)
+                .then((played) => {
+                  if (played && playbackTokenRef.current === token) onEnded?.();
+                  resolve(played);
+                })
+                .catch(() => resolve(false));
+            }
+          }
+        };
+
+        const playPromise = greetingAudio.play();
+        if (playPromise && typeof playPromise.then === 'function') {
+          playPromise
+            .then(() => {
+              if (playbackTokenRef.current === token) {
+                onPlaybackStarted?.();
+                if (!settled) {
+                  settled = true;
+                  resolve(true);
+                }
+              } else {
+                greetingAudio.pause();
+                if (!settled) {
+                  settled = true;
+                  resolve(false);
+                }
+              }
+            })
+            .catch(() => {
+              greetingAudio.onended = null;
+              greetingAudio.onerror = null;
+              if (!settled) {
+                settled = true;
+                if (isAutoplay) {
+                  resolve(false);
+                } else {
+                  playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, false, onPlaybackStarted)
+                    .then((played) => {
+                      if (played && playbackTokenRef.current === token) onEnded?.();
+                      resolve(played);
+                    })
+                    .catch(() => resolve(false));
+                }
+              }
+            });
+        } else {
+          onPlaybackStarted?.();
+          settled = true;
+          resolve(true);
+        }
+      });
+    }
+
+    return playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, isAutoplay, onPlaybackStarted).then((played) => {
+      if (played && playbackTokenRef.current === token) {
+        onEnded?.();
+      }
+      return played;
+    });
+  };
+
+  // Preload welcome voice clips and immediately play "مرحباً بك في منصتك الرقمية" on entry
   useEffect(() => {
     if (!showWelcome) {
       hasPlayedWelcome1Ref.current = false;
-      setWelcomeAutoplayBlocked(false);
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       return;
@@ -1310,26 +1434,13 @@ export default function App() {
       }
     });
 
-    const timer = setTimeout(() => {
-      if (hasPlayedWelcome1Ref.current) return;
-      playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, true, () => {
+    if (!hasPlayedWelcome1Ref.current) {
+      playWelcome1Greeting(true, () => {
         hasPlayedWelcome1Ref.current = true;
-        setWelcomeAutoplayBlocked(false);
-      })
-        .then((played) => {
-          if (!played && !hasPlayedWelcome1Ref.current) {
-            setWelcomeAutoplayBlocked(true);
-          }
-        })
-        .catch(() => {
-          if (!hasPlayedWelcome1Ref.current) {
-            setWelcomeAutoplayBlocked(true);
-          }
-        });
-    }, 100);
+      }).catch(() => {});
+    }
 
     return () => {
-      clearTimeout(timer);
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     };
@@ -1342,6 +1453,7 @@ export default function App() {
     let attemptingGesture = false;
 
     const cleanupListeners = () => {
+      window.removeEventListener('pointerdown', handleFirstGesture, true);
       window.removeEventListener('touchend', handleFirstGesture, true);
       window.removeEventListener('click', handleFirstGesture, true);
       window.removeEventListener('keydown', handleFirstGesture, true);
@@ -1367,16 +1479,14 @@ export default function App() {
       }
 
       attemptingGesture = true;
-      playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, false, () => {
+      playWelcome1Greeting(false, () => {
         hasPlayedWelcome1Ref.current = true;
-        setWelcomeAutoplayBlocked(false);
         cleanupListeners();
       })
         .then((played) => {
           attemptingGesture = false;
           if (played) {
             hasPlayedWelcome1Ref.current = true;
-            setWelcomeAutoplayBlocked(false);
             cleanupListeners();
           }
         })
@@ -1385,6 +1495,7 @@ export default function App() {
         });
     };
 
+    window.addEventListener('pointerdown', handleFirstGesture, true);
     window.addEventListener('touchend', handleFirstGesture, true);
     window.addEventListener('click', handleFirstGesture, true);
     window.addEventListener('keydown', handleFirstGesture, true);
@@ -1394,7 +1505,6 @@ export default function App() {
 
   const handleGoToWelcomePage1 = () => {
     hasPlayedWelcome1Ref.current = true;
-    setWelcomeAutoplayBlocked(false);
     stopAllAudio();
     setWelcomePage(1);
   };
@@ -1402,17 +1512,25 @@ export default function App() {
   const handleNextWelcomePage = () => {
     const shouldPlayWelcome1First = !hasPlayedWelcome1Ref.current;
     hasPlayedWelcome1Ref.current = true;
-    setWelcomeAutoplayBlocked(false);
     setWelcomePage(2);
-    const textToSpeak = shouldPlayWelcome1First
-      ? `${WELCOME_PAGE_1_TEXT}، ${WELCOME_PAGE_2_TEXT}`
-      : WELCOME_PAGE_2_TEXT;
-    playWelcomeChildVoice(textToSpeak, false).catch(() => {});
+
+    if (shouldPlayWelcome1First) {
+      playWelcome1Greeting(
+        false,
+        undefined,
+        () => {
+          playWelcomeChildVoice(WELCOME_PAGE_2_TEXT, false).catch(() => {});
+        }
+      ).catch(() => {
+        playWelcomeChildVoice(`${WELCOME_PAGE_1_TEXT}، ${WELCOME_PAGE_2_TEXT}`, false).catch(() => {});
+      });
+    } else {
+      playWelcomeChildVoice(WELCOME_PAGE_2_TEXT, false).catch(() => {});
+    }
   };
 
   const handleStart = () => {
     hasPlayedWelcome1Ref.current = true;
-    setWelcomeAutoplayBlocked(false);
     stopAllAudio();
     setShowWelcome(false);
     setWelcomePage(1);
@@ -1424,6 +1542,14 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-950 relative overflow-x-clip" dir="rtl">
+      <audio
+        ref={welcomeGreetingAudioRef}
+        src="/audio/welcome-greeting.mp3"
+        preload="auto"
+        aria-hidden="true"
+        className="hidden"
+        onLoadedMetadata={(e) => applyChildVoicePitch(e.currentTarget)}
+      />
       {/* Site-wide illustrated storybook background */}
       <div className="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
         {!siteBgError ? (
@@ -1509,31 +1635,12 @@ export default function App() {
                         data-welcome-greeting="true"
                         onClick={() => {
                           hasPlayedWelcome1Ref.current = true;
-                          setWelcomeAutoplayBlocked(false);
-                          playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, false).catch(() => {});
+                          playWelcome1Greeting(false).catch(() => {});
                         }}
                         className="font-serif text-[22px] sm:text-4xl md:text-[42px] font-bold mb-2.5 sm:mb-4 bg-gradient-to-l from-amber-100 via-amber-300 to-orange-400 bg-clip-text text-transparent leading-tight cursor-pointer select-none"
                       >
                         مرحباً بك في منصتك الرقمية
                       </h1>
-
-                      {welcomeAutoplayBlocked && (
-                        <div className="mb-2.5 sm:mb-3 flex justify-center">
-                          <button
-                            type="button"
-                            data-welcome-greeting="true"
-                            onClick={() => {
-                              hasPlayedWelcome1Ref.current = true;
-                              setWelcomeAutoplayBlocked(false);
-                              playWelcomeChildVoice(WELCOME_PAGE_1_TEXT, false).catch(() => {});
-                            }}
-                            className="inline-flex items-center gap-1.5 text-amber-200/95 hover:text-amber-100 text-xs sm:text-sm font-bold px-3.5 py-1 rounded-xl bg-amber-500/15 border border-amber-300/30 hover:bg-amber-500/25 transition-colors cursor-pointer"
-                          >
-                            <Volume2 className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-                            <span>اضغط لسماع الترحيب الصوتي</span>
-                          </button>
-                        </div>
-                      )}
 
                       <div className="mb-3 sm:mb-4 bg-slate-950/65 backdrop-blur-md border border-amber-300/20 rounded-2xl px-3.5 sm:px-6 py-0.5 sm:py-1 max-w-xl mx-auto text-right shadow-lg shadow-black/25 divide-y divide-amber-200/10">
                         <div className="py-1.5 sm:py-2 grid grid-cols-[98px_1fr] sm:grid-cols-[160px_1fr] gap-2 sm:gap-4 text-[11px] sm:text-sm items-baseline">
